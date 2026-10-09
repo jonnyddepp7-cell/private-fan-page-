@@ -1,153 +1,403 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#171512" />
-  <title>Wallen Country Club | Independent Fan Community</title>
-  <meta name="description" content="Wallen Country Club is an independent fan community. Not affiliated with Morgan Wallen or his management." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    :root{--bg:#171512;--panel:#211e19;--panel2:#29241e;--cream:#f7f0e4;--muted:#b9ad9b;--amber:#e0a84f;--amber2:#f1c879;--line:rgba(247,240,228,.13);--danger:#ffb4a9;--good:#b6e3b8}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1120px,92%);margin:auto}.notice{background:#241e16;color:#e8d7b8;text-align:center;padding:9px 12px;font-size:12px;border-bottom:1px solid var(--line)}header{position:sticky;top:0;z-index:10;background:rgba(23,21,18,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}.brand{font-family:'Playfair Display',serif;font-weight:800;letter-spacing:.3px;font-size:20px}.brand span{color:var(--amber)}.navlinks{display:flex;gap:20px;align-items:center;color:var(--muted);font-size:13px}.navlinks a:hover{color:var(--amber2)}.btn{border:0;border-radius:999px;padding:12px 18px;background:var(--amber);color:#21170a;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s}.btn:hover{background:var(--amber2);transform:translateY(-1px)}.btn.secondary{background:transparent;border:1px solid var(--line);color:var(--cream)}.btn.small{padding:9px 13px;font-size:12px}.btn.full{width:100%}.hero{padding:84px 0 68px;background:radial-gradient(ellipse at 75% 10%,rgba(224,168,79,.16),transparent 40%),linear-gradient(135deg,#171512,#211c16 70%,#171512)}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}.eyebrow{color:var(--amber2);text-transform:uppercase;letter-spacing:2.2px;font-size:11px;font-weight:800}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,6vw,72px);line-height:1.04;margin:16px 0 18px;max-width:720px}.hero h1 em{color:var(--amber2);font-style:normal}.hero p{color:var(--muted);max-width:590px;font-size:16px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.hero-card{background:linear-gradient(145deg,#30281d,#201d18);border:1px solid rgba(224,168,79,.3);border-radius:24px;padding:28px;box-shadow:0 24px 80px #0005}.round-mark{width:64px;height:64px;border-radius:50%;border:1px solid var(--amber);display:grid;place-items:center;color:var(--amber2);font-family:'Playfair Display',serif;font-size:28px;margin-bottom:25px}.hero-card h3{font-family:'Playfair Display',serif;font-size:27px;margin:0 0 10px}.hero-card p{font-size:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}.stat{border-top:1px solid var(--line);padding-top:12px}.stat strong{display:block;color:var(--amber2);font-size:20px}.stat span{font-size:11px;color:var(--muted)}section{padding:68px 0}.section-head{max-width:650px;margin-bottom:28px}.section-head h2{font-family:'Playfair Display',serif;font-size:clamp(30px,4vw,44px);line-height:1.1;margin:10px 0}.section-head p{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.card .symbol{font-size:25px;color:var(--amber2)}.card h3{font-family:'Playfair Display',serif;margin:14px 0 8px;font-size:22px}.card p{color:var(--muted);font-size:14px}.vip{background:linear-gradient(130deg,#282116,#1d1a15);border:1px solid rgba(224,168,79,.32);border-radius:24px;padding:32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}.price{font-family:'Playfair Display',serif;font-size:43px;color:var(--amber2);white-space:nowrap}.price small{font:500 13px 'DM Sans',sans-serif;color:var(--muted)}.account-section{background:#13120f;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.auth-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:start}.auth-box,.dash-box{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px}.tabs{display:flex;gap:8px;background:#171512;padding:5px;border-radius:999px;margin-bottom:20px}.tab{flex:1;border:0;background:transparent;color:var(--muted);padding:10px;border-radius:999px;font-weight:700}.tab.active{background:var(--amber);color:#21170a}.field{display:block;margin:12px 0}.field span{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.field input,.field textarea{width:100%;background:#171512;color:var(--cream);border:1px solid var(--line);border-radius:10px;padding:12px 13px;outline:none}.field input:focus,.field textarea:focus{border-color:var(--amber)}.form-note{font-size:12px;color:var(--muted);min-height:18px;margin:10px 0}.form-note.error{color:var(--danger)}.form-note.success{color:var(--good)}.hidden{display:none!important}.dash-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 10px;color:var(--amber2);font-size:11px}.admin-box{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}.admin-box h3{margin-top:0}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.popup-backdrop{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px}.popup{width:min(480px,100%);background:#211e19;border:1px solid rgba(224,168,79,.55);border-radius:22px;padding:28px;box-shadow:0 30px 100px #0009;position:relative;max-height:90vh;overflow:auto}.popup-close{position:absolute;right:15px;top:12px;border:1px solid var(--line);background:transparent;color:var(--cream);width:34px;height:34px;border-radius:50%;font-size:20px}.popup h2{font-family:'Playfair Display',serif;font-size:31px;line-height:1.12;margin:10px 36px 10px 0}.popup p{color:var(--muted)}.giveaway-price{font-family:'Playfair Display',serif;color:var(--amber2);font-size:37px;margin:14px 0}.footer{padding:28px 0;color:var(--muted);font-size:12px}.footer-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}.toast{position:fixed;right:18px;bottom:18px;z-index:120;background:#2a241b;border:1px solid rgba(224,168,79,.5);padding:14px 18px;border-radius:12px;max-width:min(380px,90vw);box-shadow:0 10px 40px #0008}.fineprint{font-size:11px;color:var(--muted)}
-    @media(max-width:780px){.navlinks{display:none}.hero{padding:58px 0}.hero-grid,.auth-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.vip{grid-template-columns:1fr}.price{font-size:36px}.admin-grid{grid-template-columns:1fr}.hero-card{padding:22px}section{padding:52px 0}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171512">
+<title>Wallen Country Club | Independent Fan Community</title>
+<meta name="description" content="An independent Morgan Wallen fan community for music, photos, events and giveaways.">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#171512;--panel:#211e19;--cream:#f5efe4;--muted:#b9afa0;--gold:#d9a64e;--line:#40392f}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font:16px Arial,sans-serif}
+a{color:var(--gold)}button,input,textarea,select{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:5;background:#171512ed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+nav,.wrap{max-width:1150px;margin:auto;padding:15px 20px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:1px}.sub{font-size:12px;color:var(--muted);margin-top:4px}
+.navlinks{display:flex;gap:16px;flex-wrap:wrap}.navlinks a{text-decoration:none;font-size:14px}
+button,.btn{border:0;border-radius:999px;padding:11px 16px;font-weight:bold;text-decoration:none;display:inline-block}
+.primary{background:var(--gold);color:#24190b}.secondary{background:#2b261f;border:1px solid #62513a;color:var(--cream)}
+.danger{background:#713d32;color:white}.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:19px}
+.hero{padding:75px 20px;background:radial-gradient(ellipse at 80% 20%,#7e542b66,transparent 35%),linear-gradient(125deg,#282219,#15130f)}
+.hero h1{font-size:clamp(38px,7vw,70px);line-height:1.04;margin:15px 0;max-width:780px}
+.hero p{color:var(--muted);max-width:680px;line-height:1.65}
+.gold{color:var(--gold)}.eyebrow{text-transform:uppercase;letter-spacing:3px;font-size:11px;color:var(--gold);font-weight:bold}
+section{scroll-margin-top:90px}.section{padding-top:35px;padding-bottom:35px}
+h2{font-size:30px;margin:8px 0}h3{margin:8px 0}.muted{color:var(--muted)}.small{font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px}
+.field{display:block;width:100%;padding:12px;background:#15130f;border:1px solid #51483a;border-radius:9px;color:var(--cream);margin:6px 0 14px}
+label{font-size:13px;color:#d5c9b7}textarea{resize:vertical}
+img.cover{width:100%;height:175px;object-fit:cover;border-radius:11px;background:#15130f}
+.pill{display:inline-block;border:1px solid #65543a;border-radius:20px;padding:4px 9px;color:#eac77f;font-size:11px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.hidden{display:none!important}
+.modal{position:fixed;inset:0;background:#000b;z-index:20;display:flex;align-items:center;justify-content:center;padding:15px;overflow:auto}
+.modalbox{background:var(--panel);border:1px solid #61513a;border-radius:18px;padding:23px;width:min(700px,100%);max-height:92vh;overflow:auto}
+.close{float:right;padding:7px 11px}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}
+.tab{background:#30291f;border:1px solid #51432d;color:var(--cream);padding:9px 12px}.tab.active{background:var(--gold);color:#24190b}
+.notice{padding:12px;border:1px solid #59492f;background:#2b2419;border-radius:10px;margin:12px 0}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding:30px 20px;line-height:1.7}
+.toast{position:fixed;bottom:18px;right:18px;z-index:50;background:#29241d;border:1px solid #6b5938;padding:14px;border-radius:10px;max-width:90vw}
+@media(max-width:650px){.navlinks{order:3;width:100%}.hero{padding-top:50px}.wrap{padding:12px 15px}}
+</style>
 </head>
 <body>
-  <div class="notice">An independent fan community • Not affiliated with Morgan Wallen or his management</div>
-  <header><div class="wrap nav"><a class="brand" href="#home">WALLEN <span>COUNTRY CLUB</span></a><nav class="navlinks"><a href="#about">About</a><a href="#vip">VIP</a><a href="#giveaway">Giveaway</a><a href="#account">Member login</a></nav><a class="btn small" href="#account">Join the Club</a></div></header>
-  <main>
-    <section class="hero" id="home"><div class="wrap hero-grid"><div><div class="eyebrow">Good music • Good people • Country spirit</div><h1>A place for the <em>Wallen</em> fan community.</h1><p>Connect with fellow fans, get community updates, and hear about our current fan giveaway. This is an independently run fan community and is not an official artist website.</p><div class="hero-actions"><a class="btn" href="#account">Create your account <span>→</span></a><a class="btn secondary" href="#giveaway">View giveaway</a></div></div><div class="hero-card"><div class="round-mark">WC</div><div class="eyebrow">Welcome to the club</div><h3>Country music brings us together.</h3><p>A community space built around the music, the memories, and the fans who make every song mean something.</p><div class="stats"><div class="stat"><strong>01</strong><span>Fan community</span></div><div class="stat"><strong>VIP</strong><span>Member access</span></div><div class="stat"><strong>✦</strong><span>Giveaway updates</span></div></div></div></div></section>
-    <section id="about"><div class="wrap"><div class="section-head"><div class="eyebrow">The community</div><h2>More than a playlist.</h2><p>A simple place for fans to stay connected. Sign up to view member updates and receive the current giveaway details when you log in.</p></div><div class="cards"><article class="card"><div class="symbol">♫</div><h3>Music & memories</h3><p>Share your favourite songs, concert memories, and moments that made you a fan.</p></article><article class="card"><div class="symbol">✦</div><h3>Member updates</h3><p>Sign in to view the latest community giveaway information and announcements.</p></article><article class="card"><div class="symbol">♧</div><h3>Fan connection</h3><p>Meet other fans respectfully and help keep the community friendly and welcoming.</p></article></div></div></section>
-    <section id="vip"><div class="wrap"><div class="vip"><div><div class="eyebrow">Optional membership</div><h2 style="font-family:'Playfair Display',serif;margin:8px 0;font-size:32px">VIP Community Membership</h2><p style="color:var(--muted);margin:0">Monthly membership interest: <strong>$100 USD/month</strong>. Contact the administrator to ask what is included before making any payment. Membership is not official artist access.</p></div><div><div class="price">$100 <small>/ month</small></div><a class="btn" href="https://wa.me/18254186715?text=Hello%2C%20I%27d%20like%20to%20ask%20about%20Wallen%20Country%20Club%20VIP%20membership." target="_blank" rel="noopener">Ask on WhatsApp</a></div></div><p class="fineprint" style="margin-top:14px">WhatsApp is for enquiries only. This website does not process payments or automatically activate paid membership.</p></div></section>
-    <section id="giveaway"><div class="wrap"><div class="section-head"><div class="eyebrow">Current fan giveaway</div><h2>Giveaway details</h2><p>Log in to see the current giveaway pop-up. Any listed price or entry cost is managed by the site administrator. Review all terms before participating.</p></div><div class="card"><div class="eyebrow">Current giveaway</div><h3 id="publicGiveawayTitle">Fan Community Giveaway</h3><p id="publicGiveawayDescription">Sign in to see the latest giveaway details.</p><div class="price" id="publicGiveawayPrice">—</div><p class="fineprint">Giveaway participation is not an endorsement by or official promotion from Morgan Wallen. Contact the administrator for terms and eligibility.</p><a class="btn secondary" href="#account">Sign in for details</a></div></div></section>
-    <section class="account-section" id="account"><div class="wrap"><div class="section-head"><div class="eyebrow">Member area</div><h2>Your account</h2><p>Create a new account or sign in. After a successful login, a pop-up will show the active giveaway details.</p></div><div class="auth-grid"><div class="auth-box" id="authBox"><div class="tabs"><button class="tab active" id="loginTab" type="button">Login</button><button class="tab" id="signupTab" type="button">Create account</button></div><form id="authForm"><label class="field"><span>Email address</span><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></label><label class="field"><span>Password</span><input id="password" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters"></label><label class="field hidden" id="confirmWrap"><span>Confirm password</span><input id="confirmPassword" type="password" autocomplete="new-password" minlength="6" placeholder="Type password again"></label><button class="btn full" id="authSubmit" type="submit">Login</button><button class="btn secondary full" style="margin-top:10px" id="forgotBtn" type="button">Forgot password?</button><p class="form-note" id="authMessage" role="status"></p></form><p class="fineprint">Use an email address you can access. If email confirmation is enabled, check your inbox and spam folder.</p></div>
-      <div class="dash-box"><div id="signedOutInfo"><div class="eyebrow">Members</div><h3 style="font-family:'Playfair Display',serif;font-size:25px;margin-bottom:8px">Welcome to the club.</h3><p style="color:var(--muted);font-size:14px">After signing in, your account status and current giveaway details will appear here.</p></div><div id="accountPanel" class="hidden"><div class="dash-top"><div><div class="eyebrow">Signed in as</div><h3 id="memberEmail" style="margin:5px 0;overflow-wrap:anywhere"></h3></div><span class="pill" id="rolePill">MEMBER</span></div><p id="memberStatus" style="color:var(--muted);font-size:14px">You are signed in.</p><button class="btn secondary small" id="logoutBtn" type="button">Log out</button><div class="admin-box hidden" id="adminPanel"><div class="eyebrow">Administrator tools</div><h3>Edit current giveaway</h3><p style="color:var(--muted);font-size:13px">Changes are saved to Supabase and will be shown to members. Only accounts with the admin role can save edits.</p><form id="giveawayForm"><label class="field"><span>Giveaway title</span><input id="giveawayTitleInput" required maxlength="120"></label><label class="field"><span>Description / terms summary</span><textarea id="giveawayDescriptionInput" rows="3" maxlength="1500" required></textarea></label><div class="admin-grid"><label class="field"><span>Price / entry cost (USD)</span><input id="giveawayPriceInput" type="number" min="0" step="0.01" required></label><label class="field"><span>Currency</span><input id="giveawayCurrencyInput" value="USD" maxlength="8" required></label></div><label class="field"><span><input id="giveawayActiveInput" type="checkbox" checked style="width:auto;margin-right:8px"> Show this giveaway as active</span></label><button class="btn full" type="submit">Save giveaway changes</button><p class="form-note" id="adminMessage" role="status"></p></form></div></div></div></div></div></section>
-  </main>
-  <footer class="footer"><div class="wrap footer-row"><span>© <span id="year"></span> Wallen Country Club — Independent fan community.</span><span>Not affiliated with Morgan Wallen, his label, or management.</span></div></footer>
-  <div class="popup-backdrop hidden" id="giveawayPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle"><div class="popup"><button class="popup-close" id="popupClose" aria-label="Close giveaway pop-up" type="button">×</button><div class="eyebrow">Member update • Current giveaway</div><h2 id="popupTitle">Fan Community Giveaway</h2><p id="popupDescription">Here are the current giveaway details.</p><div class="giveaway-price" id="popupPrice">—</div><p class="fineprint">Please review eligibility and terms before participating. This is an independent fan community, not an official artist giveaway.</p><a class="btn full" id="popupContact" href="https://wa.me/18254186715?text=Hello%2C%20please%20send%20me%20the%20giveaway%20terms." target="_blank" rel="noopener">Ask for giveaway terms on WhatsApp</a></div></div>
-  <div class="toast hidden" id="toast" role="status"></div>
+<header><nav>
+  <div><div class="brand">WALLEN COUNTRY CLUB</div><div class="sub">Independent fan community</div></div>
+  <div class="navlinks">
+    <a href="#giveaways">Giveaways</a><a href="#music">Music</a><a href="#gallery">Photos</a><a href="#events">Events</a>
+  </div>
+  <div class="actions" style="margin:0">
+    <button id="noticeBtn" class="secondary hidden">Notifications <span id="unread">0</span></button>
+    <button id="loginBtn" class="primary">Login / Join</button>
+    <button id="accountBtn" class="secondary hidden">My account</button>
+  </div>
+</nav></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Good music. Good people. Country spirit.</div>
+  <h1>A home for the <span class="gold">Wallen</span> fan community.</h1>
+  <p>Discover music, share fan moments, explore community events and enter clearly explained giveaways.</p>
+  <div class="actions"><a class="btn primary" href="#giveaways">Explore giveaways ↗</a><button id="joinBtn" class="secondary">Create account</button></div>
+  <p class="small">Wallen Country Club is an independent fan community. It is not an official Morgan Wallen website and is not affiliated with or endorsed by Morgan Wallen or his representatives.</p>
+</div></section>
+
+<div class="wrap">
+<section class="section" id="giveaways">
+  <div class="eyebrow">Community prizes</div><h2>Giveaways</h2>
+  <p class="muted">Review each prize, closing date, eligibility and rules before entering.</p>
+  <div id="giveawayList" class="grid"><div class="panel">Loading giveaways…</div></div>
+</section>
+<section class="section" id="music">
+  <div class="eyebrow">On repeat</div><h2>Music corner</h2><p class="muted">Fan-curated links to music services.</p>
+  <div id="musicList" class="grid"><div class="panel">Loading music…</div></div>
+</section>
+<section class="section" id="gallery">
+  <div class="eyebrow">Fan moments</div><h2>Photo gallery</h2>
+  <div id="galleryList" class="grid"><div class="panel">Loading photos…</div></div>
+</section>
+<section class="section" id="events">
+  <div class="eyebrow">What's happening</div><h2>Events & announcements</h2>
+  <div id="eventList" class="grid"><div class="panel">Loading events…</div></div>
+</section>
+<section class="section">
+  <div class="panel"><div class="eyebrow">Join the community</div><h2>Make yourself at home.</h2>
+  <p class="muted">Create an account to enter available giveaways and manage your member profile.</p>
+  <button id="joinBtn2" class="primary">Create account</button></div>
+</section>
+</div>
+</main>
+<footer><div class="wrap">
+  <strong>Wallen Country Club</strong><br>
+  Independent fan community — not an official artist website.<br>
+  Giveaways are community-run, not sponsored by or associated with Morgan Wallen. Publish clear rules and eligibility before accepting entries. Never promise a guaranteed prize or request payment to release a prize without transparent, lawful terms.
+</div></footer>
+
+<!-- Login, registration and password reset -->
+<div id="authModal" class="modal hidden"><div class="modalbox">
+  <button class="secondary close" data-close="authModal">✕</button>
+  <div class="eyebrow">Member access</div><h2 id="authHeading">Welcome back</h2>
+  <div class="tabs"><button class="tab active" data-auth="login">Login</button><button class="tab" data-auth="signup">Create account</button><button class="tab" data-auth="reset">Forgot password</button></div>
+  <form id="loginForm"><label>Email</label><input class="field" id="liEmail" type="email" autocomplete="email" required><label>Password</label><input class="field" id="liPass" type="password" autocomplete="current-password" required><button class="primary">Login</button></form>
+  <form id="signupForm" class="hidden"><label>Display name</label><input class="field" id="suName" maxlength="40" required><label>Email</label><input class="field" id="suEmail" type="email" required><label>Password (at least 8 characters)</label><input class="field" id="suPass" type="password" minlength="8" required><label><input id="suAgree" type="checkbox" required> I agree to respectful community participation.</label><p class="small muted">You may need to confirm your email before logging in.</p><button class="primary">Create account</button></form>
+  <form id="resetForm" class="hidden"><label>Email</label><input class="field" id="resetEmail" type="email" required><button class="primary">Send reset email</button></form>
+  <form id="newPasswordForm" class="hidden"><label>New password</label><input class="field" id="newPass" type="password" minlength="8" required><button class="primary">Save new password</button></form>
+  <div id="authMsg" class="notice hidden"></div>
+</div></div>
+
+<!-- Welcome pop-up after successful login -->
+<div id="welcomeModal" class="modal hidden"><div class="modalbox">
+  <button class="secondary close" data-close="welcomeModal">✕</button><div class="eyebrow">Welcome to the club</div>
+  <h2 id="welcomeTitle">Good to see you!</h2><p class="muted">Here is the latest giveaway and community news.</p>
+  <div id="welcomeContent"></div><div id="welcomeNews"></div>
+  <div class="actions"><button id="welcomeGo" class="primary">Explore giveaways</button><button id="welcomeNotices" class="secondary">View notifications</button></div>
+</div></div>
+
+<!-- Member profile -->
+<div id="accountModal" class="modal hidden"><div class="modalbox">
+  <button class="secondary close" data-close="accountModal">✕</button><div class="eyebrow">Member area</div><h2>My profile</h2>
+  <p class="muted small" id="memberEmail"></p><div class="notice" id="memberStatus"></div>
+  <form id="profileForm"><label>Display name</label><input class="field" id="prName" maxlength="40" required><label>Short bio</label><textarea class="field" id="prBio" rows="3" maxlength="280"></textarea><label>Favourite song</label><input class="field" id="prSong" maxlength="100"><button class="primary">Save profile</button></form>
+  <div class="actions"><button id="openAdmin" class="secondary hidden">Admin dashboard</button><button id="logoutBtn" class="danger">Log out</button></div>
+</div></div>
+
+<!-- Notifications -->
+<div id="notificationsModal" class="modal hidden"><div class="modalbox">
+  <button class="secondary close" data-close="notificationsModal">✕</button><div class="eyebrow">Club notices</div><h2>Notifications</h2>
+  <div id="notificationsList"></div><button id="markAll" class="secondary">Mark all read</button>
+</div></div>
+
+<!-- Admin dashboard -->
+<div id="adminModal" class="modal hidden"><div class="modalbox" style="max-width:950px">
+  <button class="secondary close" data-close="adminModal">✕</button><div class="eyebrow">Restricted area</div><h2>Admin dashboard</h2>
+  <p class="muted small">Only trusted accounts should have admin access. Supabase row-level security must protect all admin writes.</p>
+  <div class="tabs">
+    <button class="tab active" data-admin="giveaways">Giveaways</button><button class="tab" data-admin="announcements">Announcements</button><button class="tab" data-admin="music">Music</button><button class="tab" data-admin="gallery">Photos</button><button class="tab" data-admin="events">Events</button><button class="tab" data-admin="entries">Entries</button>
+  </div>
+  <section id="admin-giveaways">
+    <h3>Create / edit giveaway</h3><form id="gForm">
+      <input type="hidden" id="gId">
+      <label>Giveaway title</label><input class="field" id="gTitle" required maxlength="100">
+      <label>Prize name</label><input class="field" id="gPrize" required maxlength="120">
+      <label>Displayed prize value</label><input class="field" id="gValue" type="number" min="0" step=".01" required>
+      <label>Currency</label><select class="field" id="gCurrency"><option>USD</option><option>NGN</option><option>GBP</option><option>EUR</option><option>CAD</option></select>
+      <label>Prize image URL (optional)</label><input class="field" id="gImage" type="url">
+      <label>Closing date (optional)</label><input class="field" id="gCloses" type="datetime-local">
+      <label>Description & eligibility</label><textarea class="field" id="gDesc" rows="3" required maxlength="2000"></textarea>
+      <label>Rules and winner selection</label><textarea class="field" id="gRules" rows="3" maxlength="2000"></textarea>
+      <label><input id="gActive" type="checkbox" checked> Active / visible</label>
+      <label><input id="gFeatured" type="checkbox"> Feature in login pop-up</label>
+      <div class="actions"><button class="primary">Save giveaway</button><button type="button" class="secondary" id="clearG">Clear form</button></div>
+    </form><h3>Existing giveaways</h3><div id="adminGList"></div>
+  </section>
+  <section id="admin-announcements" class="hidden">
+    <h3>Create / edit announcement</h3><form id="aForm"><input type="hidden" id="aId"><label>Title</label><input class="field" id="aTitle" required maxlength="120"><label>Message</label><textarea class="field" id="aBody" rows="4" required maxlength="2500"></textarea><label><input id="aActive" type="checkbox" checked> Published</label><div class="actions"><button class="primary">Save announcement</button><button type="button" class="secondary" id="clearA">Clear</button></div></form><div id="adminAList"></div>
+  </section>
+  <section id="admin-music" class="hidden">
+    <h3>Music links</h3><form id="mForm"><input type="hidden" id="mId"><label>Song / playlist title</label><input class="field" id="mTitle" required maxlength="150"><label>Artist / note</label><input class="field" id="mArtist" maxlength="150"><label>Official listening URL</label><input class="field" id="mUrl" type="url" required><label>Cover image URL (optional)</label><input class="field" id="mImage" type="url"><label>Description</label><textarea class="field" id="mDesc" maxlength="500"></textarea><label><input id="mActive" type="checkbox" checked> Visible</label><div class="actions"><button class="primary">Save music</button><button type="button" class="secondary" id="clearM">Clear</button></div></form><div id="adminMList"></div>
+  </section>
+  <section id="admin-gallery" class="hidden">
+    <h3>Gallery photos</h3><form id="pForm"><input type="hidden" id="pId"><label>Photo title</label><input class="field" id="pTitle" required maxlength="150"><label>Image URL</label><input class="field" id="pImage" type="url" required><label>Caption / credit</label><input class="field" id="pCaption" maxlength="500"><label><input id="pActive" type="checkbox" checked> Visible</label><div class="actions"><button class="primary">Save photo</button><button type="button" class="secondary" id="clearP">Clear</button></div></form><div id="adminPList"></div>
+  </section>
+  <section id="admin-events" class="hidden">
+    <h3>Events & updates</h3><form id="eForm"><input type="hidden" id="eId"><label>Title</label><input class="field" id="eTitle" required maxlength="150"><label>Date / time (optional)</label><input class="field" id="eDate" type="datetime-local"><label>Location / format</label><input class="field" id="eLocation" maxlength="200"><label>Event link (optional)</label><input class="field" id="eUrl" type="url"><label>Description</label><textarea class="field" id="eDesc" required maxlength="2000"></textarea><label><input id="eActive" type="checkbox" checked> Visible</label><div class="actions"><button class="primary">Save event</button><button type="button" class="secondary" id="clearE">Clear</button></div></form><div id="adminEList"></div>
+  </section>
+  <section id="admin-entries" class="hidden"><h3>Giveaway entries</h3><div id="adminEntries"></div></section>
+</div></div>
+<div id="toast" class="toast hidden"></div>
+
 <script>
-(() => {
-  // Browser-safe Supabase publishable key only. Never put a service_role/secret key here.
-  const SUPABASE_URL = 'https://xjimgbqhmpkoxvfpgudp.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_fEcWODIqMqZ0A2UId3gj9g_HQnnliAU';
-  const WHATSAPP_NUMBER = '18254186715';
-  const DEFAULT_GIVEAWAY = { id: null, title: 'Fan Community Giveaway', description: 'Sign in to see the latest giveaway details. Ask the administrator for official rules, eligibility, and deadlines.', price: 0, currency: 'USD', active: true };
-  const $ = (id) => document.getElementById(id);
-  let isSignup = false;
-  let currentUser = null;
-  let currentGiveaway = { ...DEFAULT_GIVEAWAY };
-  let toastTimer;
-  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+/* Use only the Supabase publishable/anon key in frontend code. */
+const SUPABASE_URL = 'https://xjimgbqhmpkoxvfpgudp.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_fEcWODIqMqZ0A2UId3gj9g_HQnnliAU';
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+let user=null, profile=null, giveaways=[], announcements=[], notices=[];
+let toastTimer;
 
-  $('year').textContent = new Date().getFullYear();
-  const money = (amount, currency='USD') => {
-    const n = Number(amount || 0);
-    try { return new Intl.NumberFormat(undefined, { style: 'currency', currency: (currency || 'USD').toUpperCase(), maximumFractionDigits: 2 }).format(n); }
-    catch { return `${(currency || 'USD').toUpperCase()} ${n.toFixed(2)}`; }
+function esc(v=''){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function fmt(v){if(!v)return 'Date to be announced';let d=new Date(v);return isNaN(d)?'Date to be announced':d.toLocaleString();}
+function cash(v,c='USD'){try{return new Intl.NumberFormat(undefined,{style:'currency',currency:c}).format(Number(v||0))}catch{return c+' '+v}}
+function toast(s,bad=false){let t=$('#toast');t.textContent=s;t.style.borderColor=bad?'#b45b4b':'#6b5938';t.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.add('hidden'),4500);}
+function open(id){$('#'+id).classList.remove('hidden');document.body.style.overflow='hidden';}
+function close(id){$('#'+id).classList.add('hidden');if(!$$('.modal:not(.hidden)').length)document.body.style.overflow='';}
+$$('[data-close]').forEach(b=>b.onclick=()=>close(b.dataset.close));
+$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)close(m.id)}));
+
+function authMode(mode){
+  ['login','signup','reset','newPassword'].forEach(x=>$('#'+x+'Form').classList.toggle('hidden',x!==mode));
+  $$('[data-auth]').forEach(b=>b.classList.toggle('active',b.dataset.auth===mode));
+  $('#authHeading').textContent=mode==='login'?'Welcome back':mode==='signup'?'Create your account':mode==='reset'?'Reset your password':'Choose a new password';
+  $('#authMsg').classList.add('hidden');
+}
+function authMessage(msg,bad=false){$('#authMsg').textContent=msg;$('#authMsg').classList.remove('hidden');$('#authMsg').style.borderColor=bad?'#b45b4b':'#59492f';}
+$('#loginBtn').onclick=()=>{authMode('login');open('authModal')};
+$('#joinBtn').onclick=$('#joinBtn2').onclick=()=>{authMode('signup');open('authModal')};
+$$('[data-auth]').forEach(b=>b.onclick=()=>authMode(b.dataset.auth));
+
+async function ensureProfile(u,name=''){
+  let {data,error}=await db.from('profiles').select('*').eq('id',u.id).maybeSingle();
+  if(error)throw error;
+  if(data)return data;
+  let result=await db.from('profiles').insert({id:u.id,display_name:name||u.user_metadata?.display_name||u.email?.split('@')[0]||'Member'}).select().single();
+  if(result.error)throw result.error;return result.data;
+}
+$('#signupForm').onsubmit=async e=>{
+  e.preventDefault();let b=$('#signupForm button');b.disabled=true;
+  try{
+    const {data,error}=await db.auth.signUp({email:$('#suEmail').value.trim(),password:$('#suPass').value,options:{data:{display_name:$('#suName').value.trim()},emailRedirectTo:location.href.split('#')[0]}});
+    if(error)throw error;
+    if(data.session&&data.user){user=data.user;profile=await ensureProfile(user,$('#suName').value.trim());close('authModal');await signedIn(true);toast('Account created.')}
+    else authMessage('Registration received. Check your email for the confirmation link, then return and log in.');
+  }catch(err){authMessage(err.message||'Registration failed.',true)}finally{b.disabled=false}
+};
+$('#loginForm').onsubmit=async e=>{
+  e.preventDefault();let b=$('#loginForm button');b.disabled=true;
+  try{const {data,error}=await db.auth.signInWithPassword({email:$('#liEmail').value.trim(),password:$('#liPass').value});if(error)throw error;user=data.user;profile=await ensureProfile(user);close('authModal');await signedIn(true);toast('Welcome back.')}
+  catch(err){authMessage(err.message||'Login failed. Check your email and password.',true)}finally{b.disabled=false}
+};
+$('#resetForm').onsubmit=async e=>{
+  e.preventDefault();try{const {error}=await db.auth.resetPasswordForEmail($('#resetEmail').value.trim(),{redirectTo:location.href.split('#')[0]});if(error)throw error;authMessage('If this account exists, a reset link has been sent. Check your email and spam folder.')}catch(err){authMessage(err.message,true)}
+};
+$('#newPasswordForm').onsubmit=async e=>{
+  e.preventDefault();try{const {error}=await db.auth.updateUser({password:$('#newPass').value});if(error)throw error;authMessage('Password updated. You can continue using your account.');setTimeout(()=>close('authModal'),1500)}catch(err){authMessage(err.message,true)}
+};
+
+async function signedIn(showWelcome=false){
+  profile=await ensureProfile(user);
+  $('#loginBtn').classList.add('hidden');$('#accountBtn').classList.remove('hidden');$('#noticeBtn').classList.remove('hidden');
+  await reloadContent();await loadNotices();if(showWelcome)welcomePopup();
+}
+$('#accountBtn').onclick=async()=>{await refreshProfile();open('accountModal')};
+$('#logoutBtn').onclick=async()=>{await db.auth.signOut();user=null;profile=null;$('#loginBtn').classList.remove('hidden');$('#accountBtn').classList.add('hidden');$('#noticeBtn').classList.add('hidden');close('accountModal');close('adminModal');toast('Logged out.')};
+
+async function reloadContent(){await Promise.all([loadGiveaways(),loadAnnouncements(),loadMusic(),loadGallery(),loadEvents()]);}
+async function loadGiveaways(){
+  const {data,error}=await db.from('giveaways').select('*').eq('active',true).order('created_at',{ascending:false});
+  if(error){console.error(error);$('#giveawayList').innerHTML='<div class="panel">Giveaways unavailable. Check the database setup.</div>';return}
+  giveaways=data||[];
+  $('#giveawayList').innerHTML=giveaways.length?giveaways.map(g=>`<article class="panel">
+    ${g.image_url?`<img class="cover" src="${esc(g.image_url)}" alt="${esc(g.title)}">`:''}
+    <div class="actions"><span class="pill">${g.featured?'Featured':'Community giveaway'}</span>${g.closes_at?`<span class="pill">Closes ${esc(fmt(g.closes_at))}</span>`:''}</div>
+    <h3>${esc(g.title)}</h3><p class="muted">${esc(g.prize_name)}</p><h2 class="gold">${cash(g.prize_value,g.currency)}</h2>
+    <p class="muted">${esc(g.description)}</p>${g.rules?`<details><summary>Rules & winner selection</summary><p class="muted">${esc(g.rules)}</p></details>`:''}
+    <button class="primary" data-enter="${esc(g.id)}">Enter giveaway</button>
+  </article>`).join(''):'<div class="panel">No active giveaways yet. Check back soon.</div>';
+  $$('[data-enter]').forEach(b=>b.onclick=()=>enterGiveaway(b.dataset.enter));
+}
+async function enterGiveaway(id){
+  if(!user){authMode('signup');open('authModal');toast('Create an account or log in to enter.');return}
+  const g=giveaways.find(x=>x.id===id);if(!g)return;
+  if(g.closes_at&&new Date(g.closes_at)<new Date())return toast('This giveaway has closed.',true);
+  try{const {error}=await db.from('giveaway_entries').insert({giveaway_id:id,user_id:user.id});if(error){if(error.code==='23505')throw Error('You have already entered this giveaway.');throw error}toast('Your entry has been recorded. Good luck!')}
+  catch(err){toast(err.message||'Could not enter giveaway.',true)}
+}
+async function loadAnnouncements(){
+  const {data,error}=await db.from('announcements').select('*').eq('active',true).order('created_at',{ascending:false}).limit(30);
+  if(error){console.error(error);announcements=[];return}announcements=data||[];
+}
+async function loadNotices(){
+  if(!user)return;
+  const {data,error}=await db.from('notification_reads').select('announcement_id').eq('user_id',user.id);
+  if(error)console.warn(error);
+  const read=new Set((data||[]).map(x=>x.announcement_id));
+  notices=announcements.map(a=>({...a,read:read.has(a.id)}));
+  $('#unread').textContent=notices.filter(n=>!n.read).length;
+}
+function welcomePopup(){
+  $('#welcomeTitle').textContent='Welcome'+(profile?.display_name?', '+profile.display_name:'')+'!';
+  const g=giveaways.find(x=>x.featured)||giveaways[0];
+  $('#welcomeContent').innerHTML=g?`<div class="panel">${g.image_url?`<img class="cover" src="${esc(g.image_url)}" alt="">`:''}<div class="eyebrow">Giveaway spotlight</div><h3>${esc(g.title)}</h3><p>${esc(g.prize_name)}</p><h2 class="gold">${cash(g.prize_value,g.currency)}</h2><p class="muted">${esc(g.description)}</p><button class="primary" id="popupGiveaway">View giveaways</button></div>`:'<div class="panel">No active giveaways right now. Explore the music, photos and events.</div>';
+  $('#welcomeNews').innerHTML=announcements.slice(0,2).map(a=>`<div class="notice"><b>${esc(a.title)}</b><p>${esc(a.body)}</p></div>`).join('');
+  $('#popupGiveaway')?.addEventListener('click',()=>{close('welcomeModal');$('#giveaways').scrollIntoView({behavior:'smooth'})});
+  $('#welcomeGo').onclick=()=>{close('welcomeModal');$('#giveaways').scrollIntoView({behavior:'smooth'})};
+  $('#welcomeNotices').onclick=()=>{close('welcomeModal');showNotices()};
+  open('welcomeModal');
+}
+$('#noticeBtn').onclick=showNotices;
+function showNotices(){
+  if(!user){authMode('login');open('authModal');return}
+  $('#notificationsList').innerHTML=notices.length?notices.map(n=>`<article class="panel"><span class="pill">${n.read?'Read':'New'}</span><h3>${esc(n.title)}</h3><p>${esc(n.body)}</p><p class="muted small">${esc(fmt(n.created_at))}</p>${!n.read?`<button class="secondary" data-read="${esc(n.id)}">Mark as read</button>`:''}</article>`).join(''):'<div class="panel">No announcements yet.</div>';
+  $$('[data-read]').forEach(b=>b.onclick=()=>markRead(b.dataset.read));open('notificationsModal');
+}
+async function markRead(id){
+  const {error}=await db.from('notification_reads').upsert({announcement_id:id,user_id:user.id},{onConflict:'announcement_id,user_id'});
+  if(error)return toast(error.message,true);await loadNotices();showNotices();
+}
+$('#markAll').onclick=async()=>{
+  for(const n of notices.filter(x=>!x.read)){const {error}=await db.from('notification_reads').upsert({announcement_id:n.id,user_id:user.id},{onConflict:'announcement_id,user_id'});if(error)return toast(error.message,true)}
+  await loadNotices();showNotices();toast('All announcements marked as read.');
+};
+
+async function refreshProfile(){
+  profile=await ensureProfile(user);
+  $('#memberEmail').textContent=user.email||'';
+  $('#memberStatus').textContent=(profile.role==='admin'?'Administrator':'Community member')+' • Joined '+fmt(profile.created_at);
+  $('#prName').value=profile.display_name||'';$('#prBio').value=profile.bio||'';$('#prSong').value=profile.favorite_song||'';
+  $('#openAdmin').classList.toggle('hidden',profile.role!=='admin');
+}
+$('#profileForm').onsubmit=async e=>{
+  e.preventDefault();
+  try{const {data,error}=await db.from('profiles').update({display_name:$('#prName').value.trim(),bio:$('#prBio').value.trim(),favorite_song:$('#prSong').value.trim()}).eq('id',user.id).select().single();if(error)throw error;profile=data;toast('Profile saved.');await refreshProfile()}
+  catch(err){toast(err.message||'Could not save profile.',true)}
+};
+
+async function loadMusic(){
+  const {data,error}=await db.from('music_items').select('*').eq('active',true).order('created_at',{ascending:false});
+  $('#musicList').innerHTML=error?'<div class="panel">Music is unavailable.</div>':(data||[]).map(m=>`<article class="panel">${m.image_url?`<img class="cover" src="${esc(m.image_url)}" alt="">`:''}<h3>${esc(m.title)}</h3><p class="muted">${esc(m.artist_note||'Fan pick')}</p><p>${esc(m.description||'')}</p><a class="btn secondary" href="${esc(m.listen_url)}" target="_blank" rel="noopener noreferrer">Listen ↗</a></article>`).join('')||'<div class="panel">Music picks coming soon.</div>';
+}
+async function loadGallery(){
+  const {data,error}=await db.from('gallery_items').select('*').eq('active',true).order('created_at',{ascending:false});
+  $('#galleryList').innerHTML=error?'<div class="panel">Gallery is unavailable.</div>':(data||[]).map(p=>`<article class="panel"><img class="cover" src="${esc(p.image_url)}" alt="${esc(p.title)}" loading="lazy"><h3>${esc(p.title)}</h3><p class="muted">${esc(p.caption||'')}</p></article>`).join('')||'<div class="panel">No photos yet.</div>';
+}
+async function loadEvents(){
+  const {data,error}=await db.from('events').select('*').eq('active',true).order('event_at',{ascending:true,nullsFirst:false});
+  $('#eventList').innerHTML=error?'<div class="panel">Events are unavailable.</div>':(data||[]).map(x=>`<article class="panel"><div class="eyebrow">${x.event_at?esc(fmt(x.event_at)):'Community update'}</div><h3>${esc(x.title)}</h3><p class="muted">${esc(x.location||'')}</p><p>${esc(x.description)}</p>${x.event_url?`<a href="${esc(x.event_url)}" target="_blank" rel="noopener noreferrer">Event details ↗</a>`:''}</article>`).join('')||'<div class="panel">No events posted yet.</div>';
+}
+
+/* Admin tools: Supabase RLS is the real security boundary. */
+function adminOnly(){if(!user||profile?.role!=='admin')throw Error('Admin access required.');}
+function resetForm(id){$('#'+id).reset();const h=$('input[type=hidden]',$('#'+id));if(h)h.value='';}
+function row(title,desc,edit,del){return `<div class="panel" style="margin:10px 0"><b>${esc(title)}</b><p class="muted small">${esc(desc||'')}</p><div class="actions">${edit||''}${del||''}</div></div>`}
+function editBtn(type,id){return `<button class="secondary" data-edit="${type}" data-id="${esc(id)}">Edit</button>`}
+function delBtn(type,id){return `<button class="danger" data-del="${type}" data-id="${esc(id)}">Delete</button>`}
+function adminTab(name){
+  $$('[data-admin]').forEach(b=>b.classList.toggle('active',b.dataset.admin===name));
+  ['giveaways','announcements','music','gallery','events','entries'].forEach(n=>$('#admin-'+n).classList.toggle('hidden',n!==name));
+}
+$$('[data-admin]').forEach(b=>b.onclick=()=>adminTab(b.dataset.admin));
+$('#openAdmin').onclick=async()=>{try{adminOnly();await loadAdmin();close('accountModal');open('adminModal')}catch(e){toast(e.message,true)}};
+
+async function loadAdmin(){
+  adminOnly();
+  const specs=[
+    ['giveaways','giveaways','adminGList','title',x=>`${x.prize_name} • ${cash(x.prize_value,x.currency)} • ${x.active?'Active':'Hidden'}`],
+    ['announcements','announcements','adminAList','title',x=>x.active?'Published':'Hidden'],
+    ['music','music_items','adminMList','title',x=>x.listen_url],
+    ['gallery','gallery_items','adminPList','title',x=>x.image_url],
+    ['events','events','adminEList','title',x=>x.event_at?fmt(x.event_at):'No date']
+  ];
+  window.adminRows={};
+  for(const [type,table,target,title,desc] of specs){
+    const {data,error}=await db.from(table).select('*').order('created_at',{ascending:false});
+    if(error){$('#'+target).innerHTML=`<p class="muted">${esc(error.message)}</p>`;continue}
+    adminRows[type]=data||[];
+    $('#'+target).innerHTML=(data||[]).map(x=>row(x[title],desc(x),editBtn(type,x.id),delBtn(type,x.id))).join('')||'<p class="muted">No items yet.</p>';
+  }
+  const {data:entries,error}=await db.from('giveaway_entries').select('id,giveaway_id,user_id,created_at,giveaways(title)').order('created_at',{ascending:false}).limit(300);
+  $('#adminEntries').innerHTML=error?`<p class="muted">${esc(error.message)}</p>`:(entries||[]).map(x=>row(x.giveaways?.title||'Giveaway',`User ID: ${x.user_id} • ${fmt(x.created_at)}`,'','')).join('')||'<p class="muted">No entries yet.</p>';
+  $$('[data-edit]').forEach(b=>b.onclick=()=>fillAdmin(b.dataset.edit,b.dataset.id));
+  $$('[data-del]').forEach(b=>b.onclick=()=>deleteAdmin(b.dataset.del,b.dataset.id));
+}
+function fillAdmin(type,id){
+  const x=(adminRows[type]||[]).find(r=>r.id===id);if(!x)return;
+  if(type==='giveaways'){
+    $('#gId').value=x.id;$('#gTitle').value=x.title;$('#gPrize').value=x.prize_name;$('#gValue').value=x.prize_value;$('#gCurrency').value=x.currency;$('#gImage').value=x.image_url||'';$('#gCloses').value=x.closes_at?new Date(x.closes_at).toISOString().slice(0,16):'';$('#gDesc').value=x.description;$('#gRules').value=x.rules||'';$('#gActive').checked=x.active;$('#gFeatured').checked=x.featured;adminTab(type);
+  }else if(type==='announcements'){
+    $('#aId').value=x.id;$('#aTitle').value=x.title;$('#aBody').value=x.body;$('#aActive').checked=x.active;adminTab(type);
+  }else if(type==='music'){
+    $('#mId').value=x.id;$('#mTitle').value=x.title;$('#mArtist').value=x.artist_note||'';$('#mUrl').value=x.listen_url;$('#mImage').value=x.image_url||'';$('#mDesc').value=x.description||'';$('#mActive').checked=x.active;adminTab(type);
+  }else if(type==='gallery'){
+    $('#pId').value=x.id;$('#pTitle').value=x.title;$('#pImage').value=x.image_url;$('#pCaption').value=x.caption||'';$('#pActive').checked=x.active;adminTab(type);
+  }else if(type==='events'){
+    $('#eId').value=x.id;$('#eTitle').value=x.title;$('#eDate').value=x.event_at?new Date(x.event_at).toISOString().slice(0,16):'';$('#eLocation').value=x.location||'';$('#eUrl').value=x.event_url||'';$('#eDesc').value=x.description;$('#eActive').checked=x.active;adminTab(type);
+  }
+}
+async function deleteAdmin(type,id){
+  if(!confirm('Delete this item?'))return;
+  try{adminOnly();const table={giveaways:'giveaways',announcements:'announcements',music:'music_items',gallery:'gallery_items',events:'events'}[type];const {error}=await db.from(table).delete().eq('id',id);if(error)throw error;toast('Deleted.');await reloadContent();await loadAdmin()}
+  catch(e){toast(e.message||'Delete failed.',true)}
+}
+async function saveRecord(formId,type,table,build){
+  const form=$('#'+formId);form.onsubmit=async e=>{
+    e.preventDefault();try{
+      adminOnly();const rowData=build();const id=rowData.id;delete rowData.id;
+      if(id){const {error}=await db.from(table).update(rowData).eq('id',id);if(error)throw error}
+      else{rowData.created_by=user.id;const {error}=await db.from(table).insert(rowData);if(error)throw error}
+      toast('Saved successfully.');resetForm(formId);await reloadContent();await loadAdmin();
+    }catch(err){toast(err.message||'Save failed.',true)}
   };
-  function message(id, text, kind='') { const el=$(id); el.textContent=text; el.className='form-note'+(kind?' '+kind:''); }
-  function toast(text) { const el=$('toast'); el.textContent=text; el.classList.remove('hidden'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.add('hidden'),4000); }
-  function showPopup() { if (!currentGiveaway.active) return; $('popupTitle').textContent=currentGiveaway.title; $('popupDescription').textContent=currentGiveaway.description; $('popupPrice').textContent=money(currentGiveaway.price,currentGiveaway.currency); $('popupContact').href='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent('Hello, please send me the full terms and eligibility details for: '+currentGiveaway.title+'. Listed price/entry cost: '+money(currentGiveaway.price,currentGiveaway.currency)+'.'); $('giveawayPopup').classList.remove('hidden'); }
-  function hidePopup() { $('giveawayPopup').classList.add('hidden'); }
-  $('popupClose').addEventListener('click',hidePopup);
-  $('giveawayPopup').addEventListener('click',(e)=>{if(e.target===$('giveawayPopup'))hidePopup();});
-  function setSignupMode(signup) { isSignup=signup; $('loginTab').classList.toggle('active',!signup); $('signupTab').classList.toggle('active',signup); $('confirmWrap').classList.toggle('hidden',!signup); $('confirmPassword').required=signup; $('authSubmit').textContent=signup?'Create account':'Login'; $('forgotBtn').classList.toggle('hidden',signup); $('password').autocomplete=signup?'new-password':'current-password'; message('authMessage',''); }
-  $('loginTab').addEventListener('click',()=>setSignupMode(false));
-  $('signupTab').addEventListener('click',()=>setSignupMode(true));
+}
+saveRecord('gForm','giveaways','giveaways',()=>({id:$('#gId').value,title:$('#gTitle').value.trim(),prize_name:$('#gPrize').value.trim(),prize_value:Number($('#gValue').value),currency:$('#gCurrency').value,image_url:$('#gImage').value.trim()||null,closes_at:$('#gCloses').value?new Date($('#gCloses').value).toISOString():null,description:$('#gDesc').value.trim(),rules:$('#gRules').value.trim(),active:$('#gActive').checked,featured:$('#gFeatured').checked}));
+saveRecord('aForm','announcements','announcements',()=>({id:$('#aId').value,title:$('#aTitle').value.trim(),body:$('#aBody').value.trim(),active:$('#aActive').checked}));
+saveRecord('mForm','music','music_items',()=>({id:$('#mId').value,title:$('#mTitle').value.trim(),artist_note:$('#mArtist').value.trim(),listen_url:$('#mUrl').value.trim(),image_url:$('#mImage').value.trim()||null,description:$('#mDesc').value.trim(),active:$('#mActive').checked}));
+saveRecord('pForm','gallery','gallery_items',()=>({id:$('#pId').value,title:$('#pTitle').value.trim(),image_url:$('#pImage').value.trim(),caption:$('#pCaption').value.trim(),active:$('#pActive').checked}));
+saveRecord('eForm','events','events',()=>({id:$('#eId').value,title:$('#eTitle').value.trim(),event_at:$('#eDate').value?new Date($('#eDate').value).toISOString():null,location:$('#eLocation').value.trim(),event_url:$('#eUrl').value.trim()||null,description:$('#eDesc').value.trim(),active:$('#eActive').checked}));
+$('#clearG').onclick=()=>resetForm('gForm');$('#clearA').onclick=()=>resetForm('aForm');$('#clearM').onclick=()=>resetForm('mForm');$('#clearP').onclick=()=>resetForm('pForm');$('#clearE').onclick=()=>resetForm('eForm');
 
-  async function loadGiveaway() {
-    // Table schema is supplied in the accompanying SQL setup file.
-    const { data, error } = await client.from('giveaways').select('id,title,description,price,currency,active').eq('active',true).order('created_at',{ascending:false}).limit(1).maybeSingle();
-    if (error) { console.warn('Could not load giveaway:',error.message); renderGiveaway(DEFAULT_GIVEAWAY); return; }
-    currentGiveaway = data ? data : { ...DEFAULT_GIVEAWAY, active:false };
-    renderGiveaway(currentGiveaway);
-  }
-  function renderGiveaway(g) {
-    $('publicGiveawayTitle').textContent=g.title||DEFAULT_GIVEAWAY.title;
-    $('publicGiveawayDescription').textContent=g.active ? (g.description||'Ask the administrator for details.') : 'There is no active giveaway at the moment. Please check back later.';
-    $('publicGiveawayPrice').textContent=g.active ? money(g.price,g.currency) : 'No active giveaway';
-  }
-  async function getProfileRole(userId) {
-    const { data, error } = await client.from('profiles').select('role,display_name').eq('id',userId).maybeSingle();
-    if (error) { console.warn('Profile role lookup failed:',error.message); return { role:'member', display_name:'' }; }
-    return data || { role:'member', display_name:'' };
-  }
-  async function showSignedIn(user, popupAfterLogin=false) {
-    currentUser=user;
-    if (!user) { $('accountPanel').classList.add('hidden'); $('signedOutInfo').classList.remove('hidden'); $('adminPanel').classList.add('hidden'); return; }
-    $('authBox').classList.add('hidden'); $('accountPanel').classList.remove('hidden'); $('signedOutInfo').classList.add('hidden'); $('memberEmail').textContent=user.email||'Member';
-    const profile=await getProfileRole(user.id);
-    const admin=profile.role==='admin';
-    $('rolePill').textContent=admin?'ADMIN':'MEMBER';
-    $('memberStatus').textContent=admin?'You are signed in with administrator access.':'You are signed in. Your current giveaway details are available below.';
-    $('adminPanel').classList.toggle('hidden',!admin);
-    if (admin) await populateAdminForm();
-    if (popupAfterLogin) { await loadGiveaway(); if (currentGiveaway.active) showPopup(); else toast('You are signed in. There is no active giveaway right now.'); }
-    else await loadGiveaway();
-  }
-  async function populateAdminForm() {
-    // Admins may also need to edit a giveaway that is currently inactive.
-    const { data: latest, error } = await client.from('giveaways').select('id,title,description,price,currency,active').order('created_at',{ascending:false}).limit(1).maybeSingle();
-    if (!error && latest) currentGiveaway = latest;
-    const g=currentGiveaway||DEFAULT_GIVEAWAY;
-    $('giveawayTitleInput').value=g.title||'';
-    $('giveawayDescriptionInput').value=g.description||'';
-    $('giveawayPriceInput').value=Number(g.price||0).toFixed(2);
-    $('giveawayCurrencyInput').value=g.currency||'USD';
-    $('giveawayActiveInput').checked=!!g.active;
-  }
-  $('authForm').addEventListener('submit',async(e)=>{
-    e.preventDefault(); const email=$('email').value.trim(); const password=$('password').value;
-    const submit=$('authSubmit'); submit.disabled=true; submit.textContent=isSignup?'Creating account…':'Logging in…'; message('authMessage','');
-    try {
-      if (isSignup) {
-        if (password!==$('confirmPassword').value) { message('authMessage','Your passwords do not match.','error'); return; }
-        const { data, error }=await client.auth.signUp({email,password, options:{ emailRedirectTo: window.location.href.split('#')[0] }});
-        if (error) throw error;
-        if (data.session && data.user) { message('authMessage','Account created successfully. You are now signed in.','success'); await showSignedIn(data.user,true); }
-        else { setSignupMode(false); message('authMessage','Account request received. Check your email for a confirmation link, then return here and log in.','success'); }
-      } else {
-        const { data, error }=await client.auth.signInWithPassword({email,password});
-        if (error) throw error;
-        message('authMessage','Login successful.','success'); await showSignedIn(data.user,true); toast('Welcome back to Wallen Country Club.');
-      }
-    } catch(err) { message('authMessage',err.message||'Something went wrong. Please try again.','error'); }
-    finally { submit.disabled=false; submit.textContent=isSignup?'Create account':'Login'; }
-  });
-  $('forgotBtn').addEventListener('click',async()=>{
-    const email=$('email').value.trim();
-    if(!email){message('authMessage','Enter your email address first, then click Forgot password.','error');return;}
-    message('authMessage','Sending password reset email…');
-    const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:window.location.href.split('#')[0]});
-    if(error) message('authMessage',error.message,'error'); else message('authMessage','If an account exists for this email, a password reset email has been sent. Check your inbox and spam folder.','success');
-  });
-  $('logoutBtn').addEventListener('click',async()=>{const {error}=await client.auth.signOut();if(error){toast(error.message);return;} currentUser=null; $('authBox').classList.remove('hidden'); $('accountPanel').classList.add('hidden'); $('signedOutInfo').classList.remove('hidden'); $('adminPanel').classList.add('hidden'); hidePopup(); toast('You have logged out.');});
-
-  $('giveawayForm').addEventListener('submit',async(e)=>{
-    e.preventDefault(); message('adminMessage','Saving changes…');
-    if(!currentUser){message('adminMessage','Please log in again.','error');return;}
-    const role=await getProfileRole(currentUser.id);
-    if(role.role!=='admin'){message('adminMessage','Only an admin can edit giveaway details.','error');return;}
-    const payload={title:$('giveawayTitleInput').value.trim(),description:$('giveawayDescriptionInput').value.trim(),price:Number($('giveawayPriceInput').value),currency:$('giveawayCurrencyInput').value.trim().toUpperCase(),active:$('giveawayActiveInput').checked,updated_at:new Date().toISOString()};
-    if(!payload.title||!payload.description||!payload.currency||!Number.isFinite(payload.price)||payload.price<0){message('adminMessage','Enter a valid title, description, currency, and non-negative price.','error');return;}
-    let result;
-    if(currentGiveaway.id){ result=await client.from('giveaways').update(payload).eq('id',currentGiveaway.id).select('id,title,description,price,currency,active').single(); }
-    else { result=await client.from('giveaways').insert(payload).select('id,title,description,price,currency,active').single(); }
-    if(result.error){message('adminMessage','Could not save: '+result.error.message+'. Check the SQL setup and admin role.','error');return;}
-    currentGiveaway=result.data; renderGiveaway(currentGiveaway); message('adminMessage','Giveaway updated successfully.','success'); toast('Giveaway details saved.');
-  });
-
-  client.auth.onAuthStateChange((event,session)=>{
-    // Avoid making Supabase requests inside the auth callback itself.
-    if(event==='SIGNED_IN' && session?.user){setTimeout(()=>showSignedIn(session.user,false),0);}
-    if(event==='SIGNED_OUT'){currentUser=null;setTimeout(()=>showSignedIn(null,false),0);}
-  });
-  (async()=>{await loadGiveaway();const {data:{session}}=await client.auth.getSession();if(session?.user) await showSignedIn(session.user,false);})();
+(async function init(){
+  try{
+    await reloadContent();
+    const {data:{session}}=await db.auth.getSession();
+    if(session?.user){user=session.user;profile=await ensureProfile(user);await signedIn(false)}
+    db.auth.onAuthStateChange((event,session)=>{
+      if(event==='PASSWORD_RECOVERY'){setTimeout(()=>{authMode('newPassword');open('authModal')},0)}
+      if(event==='SIGNED_OUT'){user=null;profile=null;$('#loginBtn').classList.remove('hidden');$('#accountBtn').classList.add('hidden');$('#noticeBtn').classList.add('hidden')}
+    });
+  }catch(e){console.error(e);toast('Setup issue: '+e.message,true)}
 })();
 </script>
 </body>
