@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wallen Country Club | Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#11110f;--panel:#1c1b18;--gold:#d9ad69;--text:#f5eee2;--muted:#b9b0a3;--line:#37332d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px Arial,sans-serif}
+button,input,textarea,select{font:inherit}button{background:var(--gold);color:#21180e;border:0;padding:11px 14px;border-radius:9px;cursor:pointer;font-weight:bold}
+button.secondary{background:#2c2a24;color:var(--text);border:1px solid var(--line)}
+button.danger{background:#783b35;color:white}input,textarea,select{width:100%;background:#11110f;border:1px solid var(--line);padding:11px;color:var(--text);border-radius:8px;margin:6px 0 12px}
+label{font-size:13px;color:var(--muted)}h1,h2,h3{margin-top:0}.muted{color:var(--muted);font-size:13px}
+.layout{min-height:100vh;display:grid;grid-template-columns:245px 1fr}
+.sidebar{background:#181714;border-right:1px solid var(--line);padding:24px 15px}
+.logo{font-weight:900;letter-spacing:1px;margin:0 8px 28px}.logo span{color:var(--gold)}
+.navbtn{width:100%;text-align:left;background:transparent;color:var(--muted);margin:3px 0;font-weight:500}
+.navbtn.active,.navbtn:hover{background:#30291e;color:var(--gold)}
+.main{padding:28px;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:25px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:24px}
+.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:19px}
+.stat small{color:var(--muted)}.stat strong{display:block;font-size:29px;color:var(--gold);margin-top:12px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.toolbar input{flex:1;min-width:180px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:13px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--gold);text-transform:uppercase;letter-spacing:.7px}td{font-size:13px}tr:last-child td{border-bottom:0}
+.status{color:var(--gold)}.hidden{display:none!important}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 15px}.full{grid-column:1/-1}
+#toast{position:fixed;bottom:20px;right:20px;background:#292721;padding:14px 18px;border:1px solid var(--line);border-radius:10px;display:none;z-index:20;max-width:90vw}
+#loginScreen{max-width:450px;margin:10vh auto;padding:25px}.loginbox{background:var(--panel);border:1px solid var(--line);padding:25px;border-radius:17px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:12px}.logo{margin:8px}.navlist{display:flex;overflow:auto;gap:5px}.navbtn{white-space:nowrap;width:auto}.main{padding:17px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<div id="loginScreen">
+ <div class="loginbox">
+  <p style="color:var(--gold);letter-spacing:2px">WALLEN COUNTRY CLUB</p>
+  <h1>Admin access</h1>
+  <p class="muted">Sign in with your account. Only accounts explicitly assigned the admin role can enter.</p>
+  <form id="loginForm">
+   <label>Email address</label><input id="email" type="email" required autocomplete="username">
+   <label>Password</label><input id="password" type="password" required autocomplete="current-password">
+   <button style="width:100%">Sign in securely</button>
+  </form>
+  <p><a href="index.html" style="color:var(--gold)">← Return to the public website</a></p>
+  <p id="loginError" class="muted"></p>
+ </div>
+</div>
+
+<div id="app" class="layout hidden">
+ <aside class="sidebar">
+  <div class="logo">WALLEN <span>ADMIN</span></div>
+  <div class="navlist">
+   <button class="navbtn active" data-tab="overview">◈ Overview</button>
+   <button class="navbtn" data-tab="giveaways">✦ Giveaways</button>
+   <button class="navbtn" data-tab="announcements">▤ Announcements</button>
+   <button class="navbtn" data-tab="music">♫ Music</button>
+   <button class="navbtn" data-tab="gallery">▧ Gallery</button>
+   <button class="navbtn" data-tab="events">◷ Events</button>
+   <button class="navbtn" data-tab="members">♙ Members</button>
+   <button class="navbtn" data-tab="entries">✓ Giveaway entries</button>
+  </div>
+  <hr style="border-color:var(--line);margin:18px 0">
+  <a href="index.html" style="display:block;padding:12px;color:var(--gold)">View public website ↗</a>
+  <button class="secondary" id="logout" style="width:100%;margin-top:10px">Log out</button>
+ </aside>
+ <main class="main">
+  <div class="top">
+   <div><p class="muted" style="margin-bottom:5px">WALLEN COUNTRY CLUB / MANAGEMENT</p><h1 id="pageTitle">Overview</h1></div>
+   <div><span id="adminName" class="muted"></span> &nbsp; <button class="secondary" id="refresh">↻ Refresh</button></div>
+  </div>
+  <div id="toast" role="status"></div>
+
+  <section id="tab-overview">
+   <div class="cards" id="stats">
+    <div class="stat"><small>Giveaways</small><strong>—</strong></div>
+    <div class="stat"><small>Members</small><strong>—</strong></div>
+    <div class="stat"><small>Announcements</small><strong>—</strong></div>
+    <div class="stat"><small>Giveaway entries</small><strong>—</strong></div>
+   </div>
+   <div class="panel">
+    <h2>Admin control centre</h2>
+    <p class="muted">Manage community content from one place. Changes are saved to Supabase and become visible on the public site according to each item's active status.</p>
+    <div class="toolbar">
+     <button onclick="switchTab('giveaways')">＋ Create giveaway</button>
+     <button class="secondary" onclick="switchTab('announcements')">＋ Announcement</button>
+     <button class="secondary" onclick="switchTab('events')">＋ Add event</button>
+    </div>
+   </div>
+   <div class="panel" style="margin-top:16px"><h2>Recent giveaways</h2><div id="recent"></div></div>
+   <div class="panel" style="margin-top:16px"><h2>Security notes</h2><p class="muted">Keep your admin account secure. Never place a Supabase service-role key in browser code. Only use the project's publishable key on the website.</p></div>
+  </section>
+
+  <section id="tab-content" class="hidden">
+   <div class="panel">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+     <h2 id="listTitle">Manage content</h2><button id="newBtn">＋ New item</button>
+    </div>
+    <div id="editor" class="hidden">
+     <hr>
+     <h3 id="editorTitle">Create item</h3>
+     <form id="recordForm"><div id="fields" class="formgrid"></div>
+      <div class="toolbar"><button id="saveBtn">Save changes</button><button type="button" class="secondary" id="cancelEdit">Cancel</button></div>
+     </form>
+    </div>
+    <div class="toolbar"><input id="search" placeholder="Search this section…"><button class="secondary" id="reloadList">Refresh list</button></div>
+    <div class="tablewrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+   </div>
+  </section>
+ </main>
+</div>
+
+<script>
+const SUPABASE_URL='https://xjimgbqhmpkoxvfpgudp.supabase.co';
+const SUPABASE_KEY='sb_publishable_fEcWODIqMqZ0A2UId3gj9g_HQnnliAU';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let user=null,profile=null,tab='overview',editingId=null,records=[];
+const configs={
+ giveaways:{table:'giveaways',title:'Giveaways',cols:['title','prize_name','prize_value','currency','closes_at','active','featured'],fields:[
+  ['title','Giveaway title','text',true],['prize_name','Prize name','text',true],['prize_value','Prize value','number',true],['currency','Currency','text',true],['image_url','Prize image URL','url'],['closes_at','Closing date and time','datetime-local'],['description','Description','textarea'],['rules','Rules','textarea'],['active','Active','checkbox'],['featured','Show login pop-up','checkbox']]},
+ announcements:{table:'announcements',title:'Announcements',cols:['title','active','created_at'],fields:[
+  ['title','Title','text',true],['body','Announcement text','textarea',true],['active','Active','checkbox']]},
+ music:{table:'music_items',title:'Music',cols:['title','artist_note','active','created_at'],fields:[
+  ['title','Title','text',true],['artist_note','Artist / note','text'],['listen_url','Listen URL','url'],['image_url','Cover image URL','url'],['description','Description','textarea'],['active','Active','checkbox']]},
+ gallery:{table:'gallery_items',title:'Gallery',cols:['title','caption','active','created_at'],fields:[
+  ['title','Photo title','text',true],['image_url','Image URL','url',true],['caption','Caption','textarea'],['active','Active','checkbox']]},
+ events:{table:'events',title:'Events',cols:['title','event_at','location','active'],fields:[
+  ['title','Event title','text',true],['event_at','Event date and time','datetime-local'],['location','Location','text'],['event_url','Event URL','url'],['description','Description','textarea'],['active','Active','checkbox']]}
+};
+function toast(s){const t=$('#toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',3500)}
+function switchTab(t){
+ tab=t;document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+ $('#pageTitle').textContent=t==='overview'?'Overview':t==='members'?'Members':t==='entries'?'Giveaway entries':configs[t]?.title||t;
+ $('#tab-overview').classList.toggle('hidden',t!=='overview');
+ $('#tab-content').classList.toggle('hidden',t==='overview');
+ $('#editor').classList.add('hidden');editingId=null;
+ if(t!=='overview')loadList();
+}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+async function checkAdmin(){
+ const {data:{session}}=await db.auth.getSession();
+ user=session?.user||null;
+ if(!user){showLogin();return}
+ const {data,error}=await db.from('profiles').select('id,display_name,role').eq('id',user.id).maybeSingle();
+ if(error){showLogin(error.message);return}
+ if(!data||data.role!=='admin'){
+  await db.auth.signOut();
+  showLogin('This account does not have administrator permissions.');
+  return;
+ }
+ profile=data;
+ $('#loginScreen').classList.add('hidden');$('#app').classList.remove('hidden');
+ $('#adminName').textContent=esc(profile.display_name||user.email||'Administrator');
+ await refreshDashboard();
+}
+function showLogin(msg=''){
+ $('#app').classList.add('hidden');$('#loginScreen').classList.remove('hidden');$('#loginError').textContent=msg;
+}
+$('#loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();$('#loginError').textContent='Checking account…';
+ const {error}=await db.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#password').value});
+ if(error){showLogin(error.message);return}
+ await checkAdmin();
+});
+$('#logout').addEventListener('click',async()=>{await db.auth.signOut();user=null;profile=null;showLogin('You have logged out.')});
+$('#refresh').addEventListener('click',refreshDashboard);
+$('#reloadList').addEventListener('click',loadList);
+$('#search').addEventListener('input',renderRows);
+$('#cancelEdit').addEventListener('click',()=>{$('#editor').classList.add('hidden');editingId=null});
+$('#newBtn').addEventListener('click',()=>openEditor(null));
+function niceDate(v){return v?new Date(v).toLocaleString():'—'}
+async function count(table){
+ const {count,error}=await db.from(table).select('*',{count:'exact',head:true});
+ if(error)throw error;return count||0;
+}
+async function refreshDashboard(){
+ try{
+  const values=await Promise.all([count('giveaways'),count('profiles'),count('announcements'),count('giveaway_entries')]);
+  $('#stats').innerHTML=[['Giveaways',values[0]],['Members',values[1]],['Announcements',values[2]],['Giveaway entries',values[3]]].map(([a,b])=>`<div class="stat"><small>${a}</small><strong>${b}</strong></div>`).join('');
+  const {data,error}=await db.from('giveaways').select('id,title,active,featured,created_at').order('created_at',{ascending:false}).limit(5);
+  if(error)throw error;
+  $('#recent').innerHTML=data?.length?`<div class="tablewrap"><table><thead><tr><th>Giveaway</th><th>Status</th><th>Featured</th></tr></thead><tbody>${data.map(g=>`<tr><td>${esc(g.title)}</td><td>${g.active?'Active':'Inactive'}</td><td>${g.featured?'Yes':'No'}</td></tr>`).join('')}</tbody></table></div>`:'<p class="muted">No giveaways created yet.</p>';
+ }catch(e){toast('Dashboard error: '+e.message)}
+}
+async function loadList(){
+ $('#editor').classList.add('hidden');editingId=null;
+ if(tab==='members')return loadMembers();
+ if(tab==='entries')return loadEntries();
+ const cfg=configs[tab];if(!cfg)return;
+ $('#listTitle').textContent=cfg.title;$('#newBtn').style.display='inline-block';$('#search').value='';
+ $('#thead').innerHTML='<tr>'+cfg.cols.map(c=>`<th>${esc(c.replaceAll('_',' '))}</th>`).join('')+'<th>Actions</th></tr>';
+ $('#tbody').innerHTML='<tr><td colspan="12">Loading…</td></tr>';
+ const {data,error}=await db.from(cfg.table).select('*').order('created_at',{ascending:false});
+ if(error){$('#tbody').innerHTML=`<tr><td colspan="12">${esc(error.message)}</td></tr>`;return}
+ records=data||[];renderRows();
+}
+function renderRows(){
+ if(tab==='members'||tab==='entries')return;
+ const cfg=configs[tab];if(!cfg)return;
+ const q=$('#search').value.toLowerCase();
+ const filtered=records.filter(r=>JSON.stringify(r).toLowerCase().includes(q));
+ $('#tbody').innerHTML=filtered.length?filtered.map(r=>`<tr>${cfg.cols.map(c=>{
+  let v=r[c];
+  if(c==='active'||c==='featured')v=v?'Yes':'No';
+  else if(c.endsWith('_at')||c==='created_at')v=niceDate(v);
+  else if(c==='image_url')v=v?'Image added':'—';
+  return `<td>${esc(v??'—')}</td>`;
+ }).join('')}<td><button class="secondary" onclick="openEditor('${esc(r.id)}')">Edit</button> <button class="danger" onclick="deleteRecord('${esc(r.id)}')">Delete</button></td></tr>`).join(''):'<tr><td colspan="12">No matching records.</td></tr>';
+}
+function openEditor(id){
+ const cfg=configs[tab];if(!cfg)return;
+ editingId=id;const item=records.find(r=>String(r.id)===String(id))||{};
+ $('#editorTitle').textContent=id?'Edit '+cfg.title:'Create '+cfg.title;
+ $('#fields').innerHTML=cfg.fields.map(([key,label,type,required])=>{
+  const value=item[key]??(type==='checkbox'?true:'');
+  if(type==='textarea')return `<div class="full"><label>${esc(label)}</label><textarea name="${key}" rows="3" ${required?'required':''}>${esc(value)}</textarea></div>`;
+  if(type==='checkbox')return `<div class="full"><label><input style="width:auto" type="checkbox" name="${key}" ${value?'checked':''}> ${esc(label)}</label></div>`;
+  const val=type==='datetime-local'&&value?new Date(value).toISOString().slice(0,16):value;
+  return `<div class="${['image_url','description','rules'].includes(key)?'full':''}"><label>${esc(label)}</label><input name="${key}" type="${type}" value="${esc(val)}" ${required?'required':''} ${type==='number'?'step="any"':''}></div>`;
+ }).join('');
+ $('#editor').classList.remove('hidden');$('#editor').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('#recordForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(!user||profile?.role!=='admin')return showLogin('Administrator access required.');
+ const cfg=configs[tab];if(!cfg)return;
+ const payload={created_by:user.id};
+ for(const [key,,type] of cfg.fields){
+  const el=$(`[name="${key}"]`);
+  if(type==='checkbox')payload[key]=el.checked;
+  else if(type==='datetime-local')payload[key]=el.value?new Date(el.value).toISOString():null;
+  else if(type==='number')payload[key]=el.value===''?0:Number(el.value);
+  else payload[key]=el.value.trim();
+ }
+ // created_by is assigned only when creating a new record.
+ if(editingId)delete payload.created_by;
+ const result=editingId
+  ?await db.from(cfg.table).update(payload).eq('id',editingId)
+  :await db.from(cfg.table).insert(payload);
+ if(result.error){toast('Save failed: '+result.error.message);return}
+ toast('Saved successfully.');$('#editor').classList.add('hidden');editingId=null;
+ await loadList();await refreshDashboard();
+});
+async function deleteRecord(id){
+ if(!confirm('Delete this item permanently?'))return;
+ const cfg=configs[tab];if(!cfg||profile?.role!=='admin')return;
+ const {error}=await db.from(cfg.table).delete().eq('id',id);
+ if(error){toast('Delete failed: '+error.message);return}
+ toast('Item deleted.');await loadList();await refreshDashboard();
+}
+async function loadMembers(){
+ $('#newBtn').style.display='none';$('#listTitle').textContent='Members';
+ $('#thead').innerHTML='<tr><th>Display name</th><th>Profile ID</th><th>Role</th><th>Joined</th></tr>';
+ $('#tbody').innerHTML='<tr><td colspan="4">Loading…</td></tr>';
+ const {data,error}=await db.from('profiles').select('id,display_name,role,created_at').order('created_at',{ascending:false}).limit(500);
+ if(error){$('#tbody').innerHTML=`<tr><td colspan="4">${esc(error.message)}</td></tr>`;return}
+ $('#tbody').innerHTML=data?.length?data.map(p=>`<tr><td>${esc(p.display_name)}</td><td>${esc(p.id)}</td><td>${esc(p.role)}</td><td>${esc(niceDate(p.created_at))}</td></tr>`).join(''):'<tr><td colspan="4">No profiles found.</td></tr>';
+}
+async function loadEntries(){
+ $('#newBtn').style.display='none';$('#listTitle').textContent='Giveaway entries';
+ $('#thead').innerHTML='<tr><th>Giveaway</th><th>Member ID</th><th>Entry date</th></tr>';
+ $('#tbody').innerHTML='<tr><td colspan="3">Loading…</td></tr>';
+ const {data,error}=await db.from('giveaway_entries').select('id,giveaway_id,user_id,created_at,giveaways(title)').order('created_at',{ascending:false}).limit(500);
+ if(error){$('#tbody').innerHTML=`<tr><td colspan="3">${esc(error.message)}</td></tr>`;return}
+ $('#tbody').innerHTML=data?.length?data.map(r=>`<tr><td>${esc(r.giveaways?.title||r.giveaway_id)}</td><td>${esc(r.user_id)}</td><td>${esc(niceDate(r.created_at))}</td></tr>`).join(''):'<tr><td colspan="3">No entries found.</td></tr>';
+}
+(async()=>{await checkAdmin()})();
+</script>
+</body>
+</html>
