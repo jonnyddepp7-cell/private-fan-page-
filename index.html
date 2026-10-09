@@ -4,401 +4,307 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#171512">
-<title>Wallen Country Club | Independent Fan Community</title>
+<title>Wallen Country Club | Fan Community</title>
 <meta name="description" content="An independent Morgan Wallen fan community for music, photos, events and giveaways.">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#171512;--panel:#211e19;--cream:#f5efe4;--muted:#b9afa0;--gold:#d9a64e;--line:#40392f}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font:16px Arial,sans-serif}
-a{color:var(--gold)}button,input,textarea,select{font:inherit}button{cursor:pointer}
-header{position:sticky;top:0;z-index:5;background:#171512ed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
-nav,.wrap{max-width:1150px;margin:auto;padding:15px 20px}
-nav{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:1px}.sub{font-size:12px;color:var(--muted);margin-top:4px}
-.navlinks{display:flex;gap:16px;flex-wrap:wrap}.navlinks a{text-decoration:none;font-size:14px}
-button,.btn{border:0;border-radius:999px;padding:11px 16px;font-weight:bold;text-decoration:none;display:inline-block}
-.primary{background:var(--gold);color:#24190b}.secondary{background:#2b261f;border:1px solid #62513a;color:var(--cream)}
-.danger{background:#713d32;color:white}.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:19px}
-.hero{padding:75px 20px;background:radial-gradient(ellipse at 80% 20%,#7e542b66,transparent 35%),linear-gradient(125deg,#282219,#15130f)}
-.hero h1{font-size:clamp(38px,7vw,70px);line-height:1.04;margin:15px 0;max-width:780px}
-.hero p{color:var(--muted);max-width:680px;line-height:1.65}
-.gold{color:var(--gold)}.eyebrow{text-transform:uppercase;letter-spacing:3px;font-size:11px;color:var(--gold);font-weight:bold}
-section{scroll-margin-top:90px}.section{padding-top:35px;padding-bottom:35px}
-h2{font-size:30px;margin:8px 0}h3{margin:8px 0}.muted{color:var(--muted)}.small{font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px}
-.field{display:block;width:100%;padding:12px;background:#15130f;border:1px solid #51483a;border-radius:9px;color:var(--cream);margin:6px 0 14px}
-label{font-size:13px;color:#d5c9b7}textarea{resize:vertical}
-img.cover{width:100%;height:175px;object-fit:cover;border-radius:11px;background:#15130f}
-.pill{display:inline-block;border:1px solid #65543a;border-radius:20px;padding:4px 9px;color:#eac77f;font-size:11px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.hidden{display:none!important}
-.modal{position:fixed;inset:0;background:#000b;z-index:20;display:flex;align-items:center;justify-content:center;padding:15px;overflow:auto}
-.modalbox{background:var(--panel);border:1px solid #61513a;border-radius:18px;padding:23px;width:min(700px,100%);max-height:92vh;overflow:auto}
-.close{float:right;padding:7px 11px}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}
-.tab{background:#30291f;border:1px solid #51432d;color:var(--cream);padding:9px 12px}.tab.active{background:var(--gold);color:#24190b}
-.notice{padding:12px;border:1px solid #59492f;background:#2b2419;border-radius:10px;margin:12px 0}
-footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding:30px 20px;line-height:1.7}
-.toast{position:fixed;bottom:18px;right:18px;z-index:50;background:#29241d;border:1px solid #6b5938;padding:14px;border-radius:10px;max-width:90vw}
-@media(max-width:650px){.navlinks{order:3;width:100%}.hero{padding-top:50px}.wrap{padding:12px 15px}}
+:root{--bg:#11110f;--panel:#1b1a17;--gold:#d9ad69;--cream:#f5eee2;--muted:#b9b0a3;--line:#37332d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:Inter,Arial,sans-serif}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;background:var(--gold);color:#21180e;font-weight:700}
+button.secondary{background:#292721;color:var(--cream);border:1px solid var(--line)}
+button.danger{background:#783b35;color:white}input,textarea{width:100%;background:#121210;border:1px solid var(--line);color:white;border-radius:9px;padding:12px;margin:6px 0 12px}
+header{position:sticky;top:0;background:#11110fee;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);z-index:5}
+.nav{max-width:1200px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:1.5px}.brand span{color:var(--gold)}
+nav{display:flex;gap:14px;flex-wrap:wrap}a{color:var(--cream);text-decoration:none}nav a{font-size:14px;color:var(--muted)}nav a:hover{color:var(--gold)}
+main{max-width:1200px;margin:auto;padding:25px 20px 70px}
+.hero{min-height:370px;border:1px solid #51432f;border-radius:22px;padding:clamp(25px,6vw,65px);display:flex;align-items:center;background:linear-gradient(90deg,#12110ff5,#17130dc9),url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero-content{max-width:650px}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:800}
+h1{font-size:clamp(36px,6vw,68px);line-height:1.04;margin:16px 0}h2{font-size:25px;margin:0 0 18px}p{line-height:1.65;color:var(--muted)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.section{margin-top:44px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.card img{width:100%;height:190px;object-fit:cover;background:#28251f;display:block}.card-body{padding:17px}.card h3{margin:0 0 8px}.card p{font-size:14px}
+.pill{display:inline-block;background:#322b20;color:var(--gold);padding:6px 9px;border-radius:20px;font-size:11px;margin-bottom:10px}
+.muted{color:var(--muted);font-size:13px}.empty{padding:20px;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;color:var(--muted);font-size:12px}
+#notice{position:fixed;bottom:20px;right:20px;background:#292721;border:1px solid var(--line);padding:14px 18px;border-radius:12px;z-index:30;display:none;max-width:90vw}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:20;align-items:center;justify-content:center;padding:16px;overflow:auto}
+.modal.show{display:flex}.modal-box{width:min(560px,100%);max-height:90vh;overflow:auto;background:#1b1a17;border:1px solid #51432f;border-radius:18px;padding:24px}
+.modal-box img{max-width:100%;max-height:250px;object-fit:cover;border-radius:12px}
+.close{float:right;background:#302c26;color:white;padding:8px 12px}
+#adminLink{display:none;color:var(--gold);font-weight:bold}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+@media(max-width:600px){.nav{padding:14px}.hero{min-height:330px}nav{gap:10px}nav a{font-size:12px}}
 </style>
 </head>
 <body>
-<header><nav>
-  <div><div class="brand">WALLEN COUNTRY CLUB</div><div class="sub">Independent fan community</div></div>
-  <div class="navlinks">
-    <a href="#giveaways">Giveaways</a><a href="#music">Music</a><a href="#gallery">Photos</a><a href="#events">Events</a>
-  </div>
+<header>
+ <div class="nav">
+  <a class="brand" href="#">WALLEN <span>COUNTRY CLUB</span></a>
+  <nav>
+   <a href="#giveaways">Giveaways</a><a href="#music">Music</a><a href="#gallery">Photos</a><a href="#events">Events</a><a href="#announcements">News</a>
+  </nav>
   <div class="actions" style="margin:0">
-    <button id="noticeBtn" class="secondary hidden">Notifications <span id="unread">0</span></button>
-    <button id="loginBtn" class="primary">Login / Join</button>
-    <button id="accountBtn" class="secondary hidden">My account</button>
+   <a id="adminLink" href="admin.html">Admin dashboard ↗</a>
+   <button class="secondary" id="profileBtn" onclick="openProfile()" style="display:none">My profile</button>
+   <button id="authBtn" onclick="openAuth()">Log in / Join</button>
+   <button class="secondary" id="logoutBtn" onclick="logout()" style="display:none">Log out</button>
   </div>
-</nav></header>
+ </div>
+</header>
 
 <main>
-<section class="hero"><div class="wrap">
-  <div class="eyebrow">Good music. Good people. Country spirit.</div>
-  <h1>A home for the <span class="gold">Wallen</span> fan community.</h1>
-  <p>Discover music, share fan moments, explore community events and enter clearly explained giveaways.</p>
-  <div class="actions"><a class="btn primary" href="#giveaways">Explore giveaways ↗</a><button id="joinBtn" class="secondary">Create account</button></div>
-  <p class="small">Wallen Country Club is an independent fan community. It is not an official Morgan Wallen website and is not affiliated with or endorsed by Morgan Wallen or his representatives.</p>
-</div></section>
-
-<div class="wrap">
-<section class="section" id="giveaways">
-  <div class="eyebrow">Community prizes</div><h2>Giveaways</h2>
-  <p class="muted">Review each prize, closing date, eligibility and rules before entering.</p>
-  <div id="giveawayList" class="grid"><div class="panel">Loading giveaways…</div></div>
-</section>
-<section class="section" id="music">
-  <div class="eyebrow">On repeat</div><h2>Music corner</h2><p class="muted">Fan-curated links to music services.</p>
-  <div id="musicList" class="grid"><div class="panel">Loading music…</div></div>
-</section>
-<section class="section" id="gallery">
-  <div class="eyebrow">Fan moments</div><h2>Photo gallery</h2>
-  <div id="galleryList" class="grid"><div class="panel">Loading photos…</div></div>
-</section>
-<section class="section" id="events">
-  <div class="eyebrow">What's happening</div><h2>Events & announcements</h2>
-  <div id="eventList" class="grid"><div class="panel">Loading events…</div></div>
-</section>
-<section class="section">
-  <div class="panel"><div class="eyebrow">Join the community</div><h2>Make yourself at home.</h2>
-  <p class="muted">Create an account to enter available giveaways and manage your member profile.</p>
-  <button id="joinBtn2" class="primary">Create account</button></div>
-</section>
-</div>
-</main>
-<footer><div class="wrap">
-  <strong>Wallen Country Club</strong><br>
-  Independent fan community — not an official artist website.<br>
-  Giveaways are community-run, not sponsored by or associated with Morgan Wallen. Publish clear rules and eligibility before accepting entries. Never promise a guaranteed prize or request payment to release a prize without transparent, lawful terms.
-</div></footer>
-
-<!-- Login, registration and password reset -->
-<div id="authModal" class="modal hidden"><div class="modalbox">
-  <button class="secondary close" data-close="authModal">✕</button>
-  <div class="eyebrow">Member access</div><h2 id="authHeading">Welcome back</h2>
-  <div class="tabs"><button class="tab active" data-auth="login">Login</button><button class="tab" data-auth="signup">Create account</button><button class="tab" data-auth="reset">Forgot password</button></div>
-  <form id="loginForm"><label>Email</label><input class="field" id="liEmail" type="email" autocomplete="email" required><label>Password</label><input class="field" id="liPass" type="password" autocomplete="current-password" required><button class="primary">Login</button></form>
-  <form id="signupForm" class="hidden"><label>Display name</label><input class="field" id="suName" maxlength="40" required><label>Email</label><input class="field" id="suEmail" type="email" required><label>Password (at least 8 characters)</label><input class="field" id="suPass" type="password" minlength="8" required><label><input id="suAgree" type="checkbox" required> I agree to respectful community participation.</label><p class="small muted">You may need to confirm your email before logging in.</p><button class="primary">Create account</button></form>
-  <form id="resetForm" class="hidden"><label>Email</label><input class="field" id="resetEmail" type="email" required><button class="primary">Send reset email</button></form>
-  <form id="newPasswordForm" class="hidden"><label>New password</label><input class="field" id="newPass" type="password" minlength="8" required><button class="primary">Save new password</button></form>
-  <div id="authMsg" class="notice hidden"></div>
-</div></div>
-
-<!-- Welcome pop-up after successful login -->
-<div id="welcomeModal" class="modal hidden"><div class="modalbox">
-  <button class="secondary close" data-close="welcomeModal">✕</button><div class="eyebrow">Welcome to the club</div>
-  <h2 id="welcomeTitle">Good to see you!</h2><p class="muted">Here is the latest giveaway and community news.</p>
-  <div id="welcomeContent"></div><div id="welcomeNews"></div>
-  <div class="actions"><button id="welcomeGo" class="primary">Explore giveaways</button><button id="welcomeNotices" class="secondary">View notifications</button></div>
-</div></div>
-
-<!-- Member profile -->
-<div id="accountModal" class="modal hidden"><div class="modalbox">
-  <button class="secondary close" data-close="accountModal">✕</button><div class="eyebrow">Member area</div><h2>My profile</h2>
-  <p class="muted small" id="memberEmail"></p><div class="notice" id="memberStatus"></div>
-  <form id="profileForm"><label>Display name</label><input class="field" id="prName" maxlength="40" required><label>Short bio</label><textarea class="field" id="prBio" rows="3" maxlength="280"></textarea><label>Favourite song</label><input class="field" id="prSong" maxlength="100"><button class="primary">Save profile</button></form>
-  <div class="actions"><button id="openAdmin" class="secondary hidden">Admin dashboard</button><button id="logoutBtn" class="danger">Log out</button></div>
-</div></div>
-
-<!-- Notifications -->
-<div id="notificationsModal" class="modal hidden"><div class="modalbox">
-  <button class="secondary close" data-close="notificationsModal">✕</button><div class="eyebrow">Club notices</div><h2>Notifications</h2>
-  <div id="notificationsList"></div><button id="markAll" class="secondary">Mark all read</button>
-</div></div>
-
-<!-- Admin dashboard -->
-<div id="adminModal" class="modal hidden"><div class="modalbox" style="max-width:950px">
-  <button class="secondary close" data-close="adminModal">✕</button><div class="eyebrow">Restricted area</div><h2>Admin dashboard</h2>
-  <p class="muted small">Only trusted accounts should have admin access. Supabase row-level security must protect all admin writes.</p>
-  <div class="tabs">
-    <button class="tab active" data-admin="giveaways">Giveaways</button><button class="tab" data-admin="announcements">Announcements</button><button class="tab" data-admin="music">Music</button><button class="tab" data-admin="gallery">Photos</button><button class="tab" data-admin="events">Events</button><button class="tab" data-admin="entries">Entries</button>
+ <section class="hero">
+  <div class="hero-content">
+   <div class="eyebrow">Music · Community · Country</div>
+   <h1>Where the music brings us together.</h1>
+   <p>Discover music, share moments, follow community events and participate in featured giveaways with fellow fans.</p>
+   <div class="actions"><a href="#music"><button>Explore the community</button></a><button class="secondary" onclick="openAuth()">Become a member</button></div>
+   <p class="muted">An independent fan community. Not affiliated with or endorsed by Morgan Wallen or his representatives.</p>
   </div>
-  <section id="admin-giveaways">
-    <h3>Create / edit giveaway</h3><form id="gForm">
-      <input type="hidden" id="gId">
-      <label>Giveaway title</label><input class="field" id="gTitle" required maxlength="100">
-      <label>Prize name</label><input class="field" id="gPrize" required maxlength="120">
-      <label>Displayed prize value</label><input class="field" id="gValue" type="number" min="0" step=".01" required>
-      <label>Currency</label><select class="field" id="gCurrency"><option>USD</option><option>NGN</option><option>GBP</option><option>EUR</option><option>CAD</option></select>
-      <label>Prize image URL (optional)</label><input class="field" id="gImage" type="url">
-      <label>Closing date (optional)</label><input class="field" id="gCloses" type="datetime-local">
-      <label>Description & eligibility</label><textarea class="field" id="gDesc" rows="3" required maxlength="2000"></textarea>
-      <label>Rules and winner selection</label><textarea class="field" id="gRules" rows="3" maxlength="2000"></textarea>
-      <label><input id="gActive" type="checkbox" checked> Active / visible</label>
-      <label><input id="gFeatured" type="checkbox"> Feature in login pop-up</label>
-      <div class="actions"><button class="primary">Save giveaway</button><button type="button" class="secondary" id="clearG">Clear form</button></div>
-    </form><h3>Existing giveaways</h3><div id="adminGList"></div>
-  </section>
-  <section id="admin-announcements" class="hidden">
-    <h3>Create / edit announcement</h3><form id="aForm"><input type="hidden" id="aId"><label>Title</label><input class="field" id="aTitle" required maxlength="120"><label>Message</label><textarea class="field" id="aBody" rows="4" required maxlength="2500"></textarea><label><input id="aActive" type="checkbox" checked> Published</label><div class="actions"><button class="primary">Save announcement</button><button type="button" class="secondary" id="clearA">Clear</button></div></form><div id="adminAList"></div>
-  </section>
-  <section id="admin-music" class="hidden">
-    <h3>Music links</h3><form id="mForm"><input type="hidden" id="mId"><label>Song / playlist title</label><input class="field" id="mTitle" required maxlength="150"><label>Artist / note</label><input class="field" id="mArtist" maxlength="150"><label>Official listening URL</label><input class="field" id="mUrl" type="url" required><label>Cover image URL (optional)</label><input class="field" id="mImage" type="url"><label>Description</label><textarea class="field" id="mDesc" maxlength="500"></textarea><label><input id="mActive" type="checkbox" checked> Visible</label><div class="actions"><button class="primary">Save music</button><button type="button" class="secondary" id="clearM">Clear</button></div></form><div id="adminMList"></div>
-  </section>
-  <section id="admin-gallery" class="hidden">
-    <h3>Gallery photos</h3><form id="pForm"><input type="hidden" id="pId"><label>Photo title</label><input class="field" id="pTitle" required maxlength="150"><label>Image URL</label><input class="field" id="pImage" type="url" required><label>Caption / credit</label><input class="field" id="pCaption" maxlength="500"><label><input id="pActive" type="checkbox" checked> Visible</label><div class="actions"><button class="primary">Save photo</button><button type="button" class="secondary" id="clearP">Clear</button></div></form><div id="adminPList"></div>
-  </section>
-  <section id="admin-events" class="hidden">
-    <h3>Events & updates</h3><form id="eForm"><input type="hidden" id="eId"><label>Title</label><input class="field" id="eTitle" required maxlength="150"><label>Date / time (optional)</label><input class="field" id="eDate" type="datetime-local"><label>Location / format</label><input class="field" id="eLocation" maxlength="200"><label>Event link (optional)</label><input class="field" id="eUrl" type="url"><label>Description</label><textarea class="field" id="eDesc" required maxlength="2000"></textarea><label><input id="eActive" type="checkbox" checked> Visible</label><div class="actions"><button class="primary">Save event</button><button type="button" class="secondary" id="clearE">Clear</button></div></form><div id="adminEList"></div>
-  </section>
-  <section id="admin-entries" class="hidden"><h3>Giveaway entries</h3><div id="adminEntries"></div></section>
-</div></div>
-<div id="toast" class="toast hidden"></div>
+ </section>
+
+ <section class="section" id="giveaways">
+  <div class="section-head"><h2>Featured giveaways</h2><span class="muted">Community promotions</span></div>
+  <div id="giveawayGrid" class="grid"><div class="empty">Loading giveaways…</div></div>
+ </section>
+ <section class="section" id="announcements">
+  <div class="section-head"><h2>Latest announcements</h2><button class="secondary" onclick="showNotifications()">My notifications</button></div>
+  <div id="announcementGrid" class="grid"><div class="empty">Loading announcements…</div></div>
+ </section>
+ <section class="section" id="music">
+  <h2>Music corner</h2><div id="musicGrid" class="grid"><div class="empty">Loading music…</div></div>
+ </section>
+ <section class="section" id="gallery">
+  <h2>Community gallery</h2><div id="galleryGrid" class="grid"><div class="empty">Loading photos…</div></div>
+ </section>
+ <section class="section" id="events">
+  <h2>Upcoming events</h2><div id="eventGrid" class="grid"><div class="empty">Loading events…</div></div>
+ </section>
+ <section class="section" id="memberArea" style="display:none">
+  <h2>My community profile</h2><div id="memberSummary" class="panel" style="padding:20px"></div>
+ </section>
+</main>
+<footer>
+ <p>Wallen Country Club is an independent fan community. It is not the official website of Morgan Wallen and is not sponsored by, affiliated with, or endorsed by the artist.</p>
+ <p>Only participate in promotions with clearly stated rules. Never send money or sensitive account information to claim a prize.</p>
+</footer>
+
+<div id="notice" role="status"></div>
+
+<!-- Authentication modal -->
+<div class="modal" id="authModal">
+ <div class="modal-box">
+  <button class="close" onclick="closeModal('authModal')">Close</button>
+  <h2 id="authTitle">Welcome back</h2>
+  <p id="authHelp">Log in to your community account.</p>
+  <form id="authForm">
+   <div id="nameWrap" style="display:none"><label>Display name</label><input id="displayName" autocomplete="nickname"></div>
+   <label>Email address</label><input id="email" type="email" autocomplete="email" required>
+   <label>Password</label><input id="password" type="password" minlength="6" autocomplete="current-password" required>
+   <label id="termsWrap" style="display:none;font-size:13px"><input id="terms" type="checkbox" style="width:auto" > I agree to the community rules.</label>
+   <button id="authSubmit" type="submit" style="width:100%">Log in</button>
+  </form>
+  <p><a href="#" id="authSwitch" onclick="switchAuth(event)">Create an account</a></p>
+  <p><a href="#" onclick="resetPassword(event)">Forgot password?</a></p>
+ </div>
+</div>
+
+<!-- Profile modal -->
+<div class="modal" id="profileModal">
+ <div class="modal-box">
+  <button class="close" onclick="closeModal('profileModal')">Close</button>
+  <h2>My profile</h2>
+  <form id="profileForm">
+   <label>Display name</label><input id="profileName" required maxlength="80">
+   <label>Short bio</label><textarea id="profileBio" rows="3" maxlength="500"></textarea>
+   <label>Favourite song</label><input id="profileSong" maxlength="150">
+   <button type="submit">Save profile</button>
+  </form>
+ </div>
+</div>
+
+<!-- Giveaway popup -->
+<div class="modal" id="giveawayModal">
+ <div class="modal-box">
+  <button class="close" onclick="closeModal('giveawayModal')">Close</button>
+  <div class="eyebrow">Featured community giveaway</div>
+  <div id="giveawayPopupContent"></div>
+ </div>
+</div>
+
+<!-- Notifications modal -->
+<div class="modal" id="notificationsModal">
+ <div class="modal-box">
+  <button class="close" onclick="closeModal('notificationsModal')">Close</button>
+  <h2>Notifications</h2><div id="notificationList"></div>
+ </div>
+</div>
 
 <script>
-/* Use only the Supabase publishable/anon key in frontend code. */
 const SUPABASE_URL = 'https://xjimgbqhmpkoxvfpgudp.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_fEcWODIqMqZ0A2UId3gj9g_HQnnliAU';
-const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null, profile = null, authMode = 'login', giveaways = [], announcements = [];
+
 const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
-let user=null, profile=null, giveaways=[], announcements=[], notices=[];
-let toastTimer;
-
-function esc(v=''){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function fmt(v){if(!v)return 'Date to be announced';let d=new Date(v);return isNaN(d)?'Date to be announced':d.toLocaleString();}
-function cash(v,c='USD'){try{return new Intl.NumberFormat(undefined,{style:'currency',currency:c}).format(Number(v||0))}catch{return c+' '+v}}
-function toast(s,bad=false){let t=$('#toast');t.textContent=s;t.style.borderColor=bad?'#b45b4b':'#6b5938';t.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.add('hidden'),4500);}
-function open(id){$('#'+id).classList.remove('hidden');document.body.style.overflow='hidden';}
-function close(id){$('#'+id).classList.add('hidden');if(!$$('.modal:not(.hidden)').length)document.body.style.overflow='';}
-$$('[data-close]').forEach(b=>b.onclick=()=>close(b.dataset.close));
-$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)close(m.id)}));
-
-function authMode(mode){
-  ['login','signup','reset','newPassword'].forEach(x=>$('#'+x+'Form').classList.toggle('hidden',x!==mode));
-  $$('[data-auth]').forEach(b=>b.classList.toggle('active',b.dataset.auth===mode));
-  $('#authHeading').textContent=mode==='login'?'Welcome back':mode==='signup'?'Create your account':mode==='reset'?'Reset your password':'Choose a new password';
-  $('#authMsg').classList.add('hidden');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dateText = d => d ? new Date(d).toLocaleString() : 'Date to be announced';
+function notify(message){const n=$('#notice');n.textContent=message;n.style.display='block';setTimeout(()=>n.style.display='none',3500)}
+function closeModal(id){$('#'+id).classList.remove('show')}
+function openModal(id){$('#'+id).classList.add('show')}
+function card(title,body,image='',tag=''){
+ return `<article class="card">${image?`<img src="${esc(image)}" alt="${esc(title)}" loading="lazy" onerror="this.style.display='none'">`:''}<div class="card-body">${tag?`<span class="pill">${esc(tag)}</span>`:''}<h3>${esc(title)}</h3>${body}</div></article>`;
 }
-function authMessage(msg,bad=false){$('#authMsg').textContent=msg;$('#authMsg').classList.remove('hidden');$('#authMsg').style.borderColor=bad?'#b45b4b':'#59492f';}
-$('#loginBtn').onclick=()=>{authMode('login');open('authModal')};
-$('#joinBtn').onclick=$('#joinBtn2').onclick=()=>{authMode('signup');open('authModal')};
-$$('[data-auth]').forEach(b=>b.onclick=()=>authMode(b.dataset.auth));
 
-async function ensureProfile(u,name=''){
-  let {data,error}=await db.from('profiles').select('*').eq('id',u.id).maybeSingle();
-  if(error)throw error;
-  if(data)return data;
-  let result=await db.from('profiles').insert({id:u.id,display_name:name||u.user_metadata?.display_name||u.email?.split('@')[0]||'Member'}).select().single();
-  if(result.error)throw result.error;return result.data;
+function openAuth(){authMode='login';renderAuth();openModal('authModal')}
+function renderAuth(){
+ $('#authTitle').textContent=authMode==='login'?'Welcome back':authMode==='signup'?'Join the community':'Reset password';
+ $('#authHelp').textContent=authMode==='signup'?'Create your free member account.':authMode==='reset'?'We will email you a password reset link.':'Log in to your community account.';
+ $('#nameWrap').style.display=authMode==='signup'?'block':'none';
+ $('#termsWrap').style.display=authMode==='signup'?'block':'none';
+ $('#password').style.display=authMode==='reset'?'none':'block';
+ $('#password').required=authMode!=='reset';
+ $('#authSubmit').textContent=authMode==='login'?'Log in':authMode==='signup'?'Create account':'Send reset link';
+ $('#authSwitch').style.display=authMode==='reset'?'none':'inline';
+ $('#authSwitch').textContent=authMode==='login'?'Create an account':'Already a member? Log in';
 }
-$('#signupForm').onsubmit=async e=>{
-  e.preventDefault();let b=$('#signupForm button');b.disabled=true;
-  try{
-    const {data,error}=await db.auth.signUp({email:$('#suEmail').value.trim(),password:$('#suPass').value,options:{data:{display_name:$('#suName').value.trim()},emailRedirectTo:location.href.split('#')[0]}});
-    if(error)throw error;
-    if(data.session&&data.user){user=data.user;profile=await ensureProfile(user,$('#suName').value.trim());close('authModal');await signedIn(true);toast('Account created.')}
-    else authMessage('Registration received. Check your email for the confirmation link, then return and log in.');
-  }catch(err){authMessage(err.message||'Registration failed.',true)}finally{b.disabled=false}
-};
-$('#loginForm').onsubmit=async e=>{
-  e.preventDefault();let b=$('#loginForm button');b.disabled=true;
-  try{const {data,error}=await db.auth.signInWithPassword({email:$('#liEmail').value.trim(),password:$('#liPass').value});if(error)throw error;user=data.user;profile=await ensureProfile(user);close('authModal');await signedIn(true);toast('Welcome back.')}
-  catch(err){authMessage(err.message||'Login failed. Check your email and password.',true)}finally{b.disabled=false}
-};
-$('#resetForm').onsubmit=async e=>{
-  e.preventDefault();try{const {error}=await db.auth.resetPasswordForEmail($('#resetEmail').value.trim(),{redirectTo:location.href.split('#')[0]});if(error)throw error;authMessage('If this account exists, a reset link has been sent. Check your email and spam folder.')}catch(err){authMessage(err.message,true)}
-};
-$('#newPasswordForm').onsubmit=async e=>{
-  e.preventDefault();try{const {error}=await db.auth.updateUser({password:$('#newPass').value});if(error)throw error;authMessage('Password updated. You can continue using your account.');setTimeout(()=>close('authModal'),1500)}catch(err){authMessage(err.message,true)}
-};
-
-async function signedIn(showWelcome=false){
-  profile=await ensureProfile(user);
-  $('#loginBtn').classList.add('hidden');$('#accountBtn').classList.remove('hidden');$('#noticeBtn').classList.remove('hidden');
-  await reloadContent();await loadNotices();if(showWelcome)welcomePopup();
+function switchAuth(e){e.preventDefault();authMode=authMode==='login'?'signup':'login';renderAuth()}
+async function resetPassword(e){
+ e.preventDefault();authMode='reset';renderAuth();
 }
-$('#accountBtn').onclick=async()=>{await refreshProfile();open('accountModal')};
-$('#logoutBtn').onclick=async()=>{await db.auth.signOut();user=null;profile=null;$('#loginBtn').classList.remove('hidden');$('#accountBtn').classList.add('hidden');$('#noticeBtn').classList.add('hidden');close('accountModal');close('adminModal');toast('Logged out.')};
+$('#authForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const email=$('#email').value.trim(), password=$('#password').value;
+ let result;
+ if(authMode==='signup'){
+  if(!$('#terms').checked){notify('Please agree to the community rules.');return}
+  result=await db.auth.signUp({email,password,options:{data:{display_name:$('#displayName').value.trim()||'Member'},emailRedirectTo:location.origin+location.pathname}});
+ }else if(authMode==='reset'){
+  result=await db.auth.resetPasswordForEmail(email,{redirectTo:location.href});
+ }else{
+  result=await db.auth.signInWithPassword({email,password});
+ }
+ if(result.error){notify(result.error.message);return}
+ if(authMode==='signup'){notify('Account created. Check your email if confirmation is required.')}
+ else if(authMode==='reset'){notify('If the account exists, a reset email has been sent.')}
+ else {notify('Welcome back!')}
+ closeModal('authModal');
+ await refreshSession();
+});
 
-async function reloadContent(){await Promise.all([loadGiveaways(),loadAnnouncements(),loadMusic(),loadGallery(),loadEvents()]);}
+async function logout(){await db.auth.signOut();currentUser=null;profile=null;updateAuthUI();notify('You have logged out.')}
+async function ensureProfile(){
+ if(!currentUser)return null;
+ let {data,error}=await db.from('profiles').select('*').eq('id',currentUser.id).maybeSingle();
+ if(error){console.error(error);return null}
+ if(!data){
+  const {data:newProfile,error:insertError}=await db.from('profiles').insert({
+   id:currentUser.id,
+   display_name:currentUser.user_metadata?.display_name||'Member',
+   role:'member'
+  }).select().single();
+  if(insertError){console.error(insertError);return null}
+  data=newProfile;
+ }
+ return data;
+}
+function updateAuthUI(){
+ const logged=!!currentUser;
+ $('#authBtn').style.display=logged?'none':'inline-block';
+ $('#logoutBtn').style.display=logged?'inline-block':'none';
+ $('#profileBtn').style.display=logged?'inline-block':'none';
+ $('#adminLink').style.display=profile?.role==='admin'?'inline-block':'none';
+ $('#memberArea').style.display=logged?'block':'none';
+ if(logged){
+  $('#memberSummary').innerHTML=`<h3>${esc(profile?.display_name||'Member')}</h3><p>${esc(profile?.bio||'Add a short bio to your profile.')}</p><p>Favourite song: ${esc(profile?.favorite_song||'Not added yet')}</p>`;
+ }
+}
+async function refreshSession(){
+ const {data}=await db.auth.getSession();currentUser=data.session?.user||null;
+ profile=await ensureProfile();updateAuthUI();await loadAll();
+}
+db.auth.onAuthStateChange(()=>{setTimeout(()=>refreshSession(),0)});
+
+async function loadAll(){
+ await Promise.all([loadGiveaways(),loadAnnouncements(),loadMusic(),loadGallery(),loadEvents()]);
+}
 async function loadGiveaways(){
-  const {data,error}=await db.from('giveaways').select('*').eq('active',true).order('created_at',{ascending:false});
-  if(error){console.error(error);$('#giveawayList').innerHTML='<div class="panel">Giveaways unavailable. Check the database setup.</div>';return}
-  giveaways=data||[];
-  $('#giveawayList').innerHTML=giveaways.length?giveaways.map(g=>`<article class="panel">
-    ${g.image_url?`<img class="cover" src="${esc(g.image_url)}" alt="${esc(g.title)}">`:''}
-    <div class="actions"><span class="pill">${g.featured?'Featured':'Community giveaway'}</span>${g.closes_at?`<span class="pill">Closes ${esc(fmt(g.closes_at))}</span>`:''}</div>
-    <h3>${esc(g.title)}</h3><p class="muted">${esc(g.prize_name)}</p><h2 class="gold">${cash(g.prize_value,g.currency)}</h2>
-    <p class="muted">${esc(g.description)}</p>${g.rules?`<details><summary>Rules & winner selection</summary><p class="muted">${esc(g.rules)}</p></details>`:''}
-    <button class="primary" data-enter="${esc(g.id)}">Enter giveaway</button>
-  </article>`).join(''):'<div class="panel">No active giveaways yet. Check back soon.</div>';
-  $$('[data-enter]').forEach(b=>b.onclick=()=>enterGiveaway(b.dataset.enter));
+ const {data,error}=await db.from('giveaways').select('*').eq('active',true).order('created_at',{ascending:false});
+ if(error){$('#giveawayGrid').innerHTML='<div class="empty">Giveaways are temporarily unavailable.</div>';console.error(error);return}
+ giveaways=data||[];
+ $('#giveawayGrid').innerHTML=giveaways.length?giveaways.map(g=>card(g.title,
+  `<p><strong>${esc(g.prize_name)}</strong> · ${esc(g.currency||'USD')} ${esc(g.prize_value??'')}</p><p>${esc(g.description||'')}</p><p class="muted">Closes: ${esc(dateText(g.closes_at))}</p><button onclick="enterGiveaway('${esc(g.id)}')">Enter giveaway</button>`,g.image_url,g.featured?'Featured':'Giveaway')).join(''):'<div class="empty">No active giveaways yet. Check back soon.</div>';
+ const featured=giveaways.find(g=>g.featured);
+ if(featured && !sessionStorage.getItem('wccPopupSeen')){
+  sessionStorage.setItem('wccPopupSeen','1');showGiveawayPopup(featured);
+ }
+}
+function showGiveawayPopup(g){
+ $('#giveawayPopupContent').innerHTML=`${g.image_url?`<img src="${esc(g.image_url)}" alt="${esc(g.prize_name)}">`:''}<h2>${esc(g.title)}</h2><p><strong>${esc(g.prize_name)}</strong> · ${esc(g.currency||'USD')} ${esc(g.prize_value??'')}</p><p>${esc(g.description||'')}</p><p>${esc(g.rules||'Read all official rules before entering.')}</p><p class="muted">Closing: ${esc(dateText(g.closes_at))}</p><button onclick="enterGiveaway('${esc(g.id)}')">Enter now</button>`;
+ openModal('giveawayModal');
 }
 async function enterGiveaway(id){
-  if(!user){authMode('signup');open('authModal');toast('Create an account or log in to enter.');return}
-  const g=giveaways.find(x=>x.id===id);if(!g)return;
-  if(g.closes_at&&new Date(g.closes_at)<new Date())return toast('This giveaway has closed.',true);
-  try{const {error}=await db.from('giveaway_entries').insert({giveaway_id:id,user_id:user.id});if(error){if(error.code==='23505')throw Error('You have already entered this giveaway.');throw error}toast('Your entry has been recorded. Good luck!')}
-  catch(err){toast(err.message||'Could not enter giveaway.',true)}
+ if(!currentUser){closeModal('giveawayModal');openAuth();notify('Log in before entering.');return}
+ const g=giveaways.find(x=>String(x.id)===String(id));
+ if(!g){notify('Giveaway not found.');return}
+ if(g.closes_at && new Date(g.closes_at)<=new Date()){notify('This giveaway has closed.');return}
+ const {error}=await db.from('giveaway_entries').insert({giveaway_id:g.id,user_id:currentUser.id});
+ if(error){notify(error.code==='23505'?'You have already entered this giveaway.':error.message);return}
+ notify('Your entry has been recorded.');closeModal('giveawayModal');
 }
 async function loadAnnouncements(){
-  const {data,error}=await db.from('announcements').select('*').eq('active',true).order('created_at',{ascending:false}).limit(30);
-  if(error){console.error(error);announcements=[];return}announcements=data||[];
+ const {data,error}=await db.from('announcements').select('*').eq('active',true).order('created_at',{ascending:false});
+ if(error){$('#announcementGrid').innerHTML='<div class="empty">Announcements are temporarily unavailable.</div>';return}
+ announcements=data||[];
+ $('#announcementGrid').innerHTML=announcements.length?announcements.map(a=>card(a.title,`<p>${esc(a.body)}</p><p class="muted">${esc(dateText(a.created_at))}</p>`, '', 'Announcement')).join(''):'<div class="empty">No announcements yet.</div>';
 }
-async function loadNotices(){
-  if(!user)return;
-  const {data,error}=await db.from('notification_reads').select('announcement_id').eq('user_id',user.id);
-  if(error)console.warn(error);
-  const read=new Set((data||[]).map(x=>x.announcement_id));
-  notices=announcements.map(a=>({...a,read:read.has(a.id)}));
-  $('#unread').textContent=notices.filter(n=>!n.read).length;
-}
-function welcomePopup(){
-  $('#welcomeTitle').textContent='Welcome'+(profile?.display_name?', '+profile.display_name:'')+'!';
-  const g=giveaways.find(x=>x.featured)||giveaways[0];
-  $('#welcomeContent').innerHTML=g?`<div class="panel">${g.image_url?`<img class="cover" src="${esc(g.image_url)}" alt="">`:''}<div class="eyebrow">Giveaway spotlight</div><h3>${esc(g.title)}</h3><p>${esc(g.prize_name)}</p><h2 class="gold">${cash(g.prize_value,g.currency)}</h2><p class="muted">${esc(g.description)}</p><button class="primary" id="popupGiveaway">View giveaways</button></div>`:'<div class="panel">No active giveaways right now. Explore the music, photos and events.</div>';
-  $('#welcomeNews').innerHTML=announcements.slice(0,2).map(a=>`<div class="notice"><b>${esc(a.title)}</b><p>${esc(a.body)}</p></div>`).join('');
-  $('#popupGiveaway')?.addEventListener('click',()=>{close('welcomeModal');$('#giveaways').scrollIntoView({behavior:'smooth'})});
-  $('#welcomeGo').onclick=()=>{close('welcomeModal');$('#giveaways').scrollIntoView({behavior:'smooth'})};
-  $('#welcomeNotices').onclick=()=>{close('welcomeModal');showNotices()};
-  open('welcomeModal');
-}
-$('#noticeBtn').onclick=showNotices;
-function showNotices(){
-  if(!user){authMode('login');open('authModal');return}
-  $('#notificationsList').innerHTML=notices.length?notices.map(n=>`<article class="panel"><span class="pill">${n.read?'Read':'New'}</span><h3>${esc(n.title)}</h3><p>${esc(n.body)}</p><p class="muted small">${esc(fmt(n.created_at))}</p>${!n.read?`<button class="secondary" data-read="${esc(n.id)}">Mark as read</button>`:''}</article>`).join(''):'<div class="panel">No announcements yet.</div>';
-  $$('[data-read]').forEach(b=>b.onclick=()=>markRead(b.dataset.read));open('notificationsModal');
-}
-async function markRead(id){
-  const {error}=await db.from('notification_reads').upsert({announcement_id:id,user_id:user.id},{onConflict:'announcement_id,user_id'});
-  if(error)return toast(error.message,true);await loadNotices();showNotices();
-}
-$('#markAll').onclick=async()=>{
-  for(const n of notices.filter(x=>!x.read)){const {error}=await db.from('notification_reads').upsert({announcement_id:n.id,user_id:user.id},{onConflict:'announcement_id,user_id'});if(error)return toast(error.message,true)}
-  await loadNotices();showNotices();toast('All announcements marked as read.');
-};
-
-async function refreshProfile(){
-  profile=await ensureProfile(user);
-  $('#memberEmail').textContent=user.email||'';
-  $('#memberStatus').textContent=(profile.role==='admin'?'Administrator':'Community member')+' • Joined '+fmt(profile.created_at);
-  $('#prName').value=profile.display_name||'';$('#prBio').value=profile.bio||'';$('#prSong').value=profile.favorite_song||'';
-  $('#openAdmin').classList.toggle('hidden',profile.role!=='admin');
-}
-$('#profileForm').onsubmit=async e=>{
-  e.preventDefault();
-  try{const {data,error}=await db.from('profiles').update({display_name:$('#prName').value.trim(),bio:$('#prBio').value.trim(),favorite_song:$('#prSong').value.trim()}).eq('id',user.id).select().single();if(error)throw error;profile=data;toast('Profile saved.');await refreshProfile()}
-  catch(err){toast(err.message||'Could not save profile.',true)}
-};
-
 async function loadMusic(){
-  const {data,error}=await db.from('music_items').select('*').eq('active',true).order('created_at',{ascending:false});
-  $('#musicList').innerHTML=error?'<div class="panel">Music is unavailable.</div>':(data||[]).map(m=>`<article class="panel">${m.image_url?`<img class="cover" src="${esc(m.image_url)}" alt="">`:''}<h3>${esc(m.title)}</h3><p class="muted">${esc(m.artist_note||'Fan pick')}</p><p>${esc(m.description||'')}</p><a class="btn secondary" href="${esc(m.listen_url)}" target="_blank" rel="noopener noreferrer">Listen ↗</a></article>`).join('')||'<div class="panel">Music picks coming soon.</div>';
+ const {data,error}=await db.from('music_items').select('*').eq('active',true).order('created_at',{ascending:false});
+ if(error){$('#musicGrid').innerHTML='<div class="empty">Music is temporarily unavailable.</div>';return}
+ $('#musicGrid').innerHTML=data?.length?data.map(m=>card(m.title,`<p>${esc(m.artist_note||'Music corner')}</p><p>${esc(m.description||'')}</p>${m.listen_url?`<a href="${esc(m.listen_url)}" target="_blank" rel="noopener noreferrer"><button>Listen / Open</button></a>`:''}`,m.image_url,'Music')).join(''):'<div class="empty">Music links will appear here.</div>';
 }
 async function loadGallery(){
-  const {data,error}=await db.from('gallery_items').select('*').eq('active',true).order('created_at',{ascending:false});
-  $('#galleryList').innerHTML=error?'<div class="panel">Gallery is unavailable.</div>':(data||[]).map(p=>`<article class="panel"><img class="cover" src="${esc(p.image_url)}" alt="${esc(p.title)}" loading="lazy"><h3>${esc(p.title)}</h3><p class="muted">${esc(p.caption||'')}</p></article>`).join('')||'<div class="panel">No photos yet.</div>';
+ const {data,error}=await db.from('gallery_items').select('*').eq('active',true).order('created_at',{ascending:false});
+ if(error){$('#galleryGrid').innerHTML='<div class="empty">Gallery is temporarily unavailable.</div>';return}
+ $('#galleryGrid').innerHTML=data?.length?data.map(m=>card(m.title,`<p>${esc(m.caption||'')}</p>`,m.image_url,'Photo')).join(''):'<div class="empty">Photos will appear here.</div>';
 }
 async function loadEvents(){
-  const {data,error}=await db.from('events').select('*').eq('active',true).order('event_at',{ascending:true,nullsFirst:false});
-  $('#eventList').innerHTML=error?'<div class="panel">Events are unavailable.</div>':(data||[]).map(x=>`<article class="panel"><div class="eyebrow">${x.event_at?esc(fmt(x.event_at)):'Community update'}</div><h3>${esc(x.title)}</h3><p class="muted">${esc(x.location||'')}</p><p>${esc(x.description)}</p>${x.event_url?`<a href="${esc(x.event_url)}" target="_blank" rel="noopener noreferrer">Event details ↗</a>`:''}</article>`).join('')||'<div class="panel">No events posted yet.</div>';
+ const {data,error}=await db.from('events').select('*').eq('active',true).order('event_at',{ascending:true});
+ if(error){$('#eventGrid').innerHTML='<div class="empty">Events are temporarily unavailable.</div>';return}
+ $('#eventGrid').innerHTML=data?.length?data.map(m=>card(m.title,`<p>${esc(m.description||'')}</p><p>${esc(dateText(m.event_at))}</p><p>${esc(m.location||'Location to be announced')}</p>${m.event_url?`<a href="${esc(m.event_url)}" target="_blank" rel="noopener noreferrer"><button>Event details</button></a>`:''}`,'','Event')).join(''):'<div class="empty">No events listed yet.</div>';
 }
-
-/* Admin tools: Supabase RLS is the real security boundary. */
-function adminOnly(){if(!user||profile?.role!=='admin')throw Error('Admin access required.');}
-function resetForm(id){$('#'+id).reset();const h=$('input[type=hidden]',$('#'+id));if(h)h.value='';}
-function row(title,desc,edit,del){return `<div class="panel" style="margin:10px 0"><b>${esc(title)}</b><p class="muted small">${esc(desc||'')}</p><div class="actions">${edit||''}${del||''}</div></div>`}
-function editBtn(type,id){return `<button class="secondary" data-edit="${type}" data-id="${esc(id)}">Edit</button>`}
-function delBtn(type,id){return `<button class="danger" data-del="${type}" data-id="${esc(id)}">Delete</button>`}
-function adminTab(name){
-  $$('[data-admin]').forEach(b=>b.classList.toggle('active',b.dataset.admin===name));
-  ['giveaways','announcements','music','gallery','events','entries'].forEach(n=>$('#admin-'+n).classList.toggle('hidden',n!==name));
+function openProfile(){
+ if(!profile){notify('Please log in first.');return}
+ $('#profileName').value=profile.display_name||'';
+ $('#profileBio').value=profile.bio||'';
+ $('#profileSong').value=profile.favorite_song||'';
+ openModal('profileModal');
 }
-$$('[data-admin]').forEach(b=>b.onclick=()=>adminTab(b.dataset.admin));
-$('#openAdmin').onclick=async()=>{try{adminOnly();await loadAdmin();close('accountModal');open('adminModal')}catch(e){toast(e.message,true)}};
-
-async function loadAdmin(){
-  adminOnly();
-  const specs=[
-    ['giveaways','giveaways','adminGList','title',x=>`${x.prize_name} • ${cash(x.prize_value,x.currency)} • ${x.active?'Active':'Hidden'}`],
-    ['announcements','announcements','adminAList','title',x=>x.active?'Published':'Hidden'],
-    ['music','music_items','adminMList','title',x=>x.listen_url],
-    ['gallery','gallery_items','adminPList','title',x=>x.image_url],
-    ['events','events','adminEList','title',x=>x.event_at?fmt(x.event_at):'No date']
-  ];
-  window.adminRows={};
-  for(const [type,table,target,title,desc] of specs){
-    const {data,error}=await db.from(table).select('*').order('created_at',{ascending:false});
-    if(error){$('#'+target).innerHTML=`<p class="muted">${esc(error.message)}</p>`;continue}
-    adminRows[type]=data||[];
-    $('#'+target).innerHTML=(data||[]).map(x=>row(x[title],desc(x),editBtn(type,x.id),delBtn(type,x.id))).join('')||'<p class="muted">No items yet.</p>';
-  }
-  const {data:entries,error}=await db.from('giveaway_entries').select('id,giveaway_id,user_id,created_at,giveaways(title)').order('created_at',{ascending:false}).limit(300);
-  $('#adminEntries').innerHTML=error?`<p class="muted">${esc(error.message)}</p>`:(entries||[]).map(x=>row(x.giveaways?.title||'Giveaway',`User ID: ${x.user_id} • ${fmt(x.created_at)}`,'','')).join('')||'<p class="muted">No entries yet.</p>';
-  $$('[data-edit]').forEach(b=>b.onclick=()=>fillAdmin(b.dataset.edit,b.dataset.id));
-  $$('[data-del]').forEach(b=>b.onclick=()=>deleteAdmin(b.dataset.del,b.dataset.id));
+$('#profileForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(!currentUser)return;
+ const changes={display_name:$('#profileName').value.trim(),bio:$('#profileBio').value.trim(),favorite_song:$('#profileSong').value.trim()};
+ const {data,error}=await db.from('profiles').update(changes).eq('id',currentUser.id).select().single();
+ if(error){notify(error.message);return}
+ profile=data;updateAuthUI();closeModal('profileModal');notify('Profile saved.');
+});
+async function showNotifications(){
+ if(!currentUser){openAuth();notify('Log in to view your notifications.');return}
+ const {data:reads}=await db.from('notification_reads').select('announcement_id').eq('user_id',currentUser.id);
+ const readSet=new Set((reads||[]).map(r=>String(r.announcement_id)));
+ $('#notificationList').innerHTML=announcements.length?announcements.map(a=>`<div class="panel" style="padding:15px;margin:10px 0"><span class="pill">${readSet.has(String(a.id))?'Read':'New'}</span><h3>${esc(a.title)}</h3><p>${esc(a.body)}</p><button class="secondary" onclick="markRead('${esc(a.id)}')">Mark as read</button></div>`).join(''):'<p>No announcements yet.</p>';
+ openModal('notificationsModal');
 }
-function fillAdmin(type,id){
-  const x=(adminRows[type]||[]).find(r=>r.id===id);if(!x)return;
-  if(type==='giveaways'){
-    $('#gId').value=x.id;$('#gTitle').value=x.title;$('#gPrize').value=x.prize_name;$('#gValue').value=x.prize_value;$('#gCurrency').value=x.currency;$('#gImage').value=x.image_url||'';$('#gCloses').value=x.closes_at?new Date(x.closes_at).toISOString().slice(0,16):'';$('#gDesc').value=x.description;$('#gRules').value=x.rules||'';$('#gActive').checked=x.active;$('#gFeatured').checked=x.featured;adminTab(type);
-  }else if(type==='announcements'){
-    $('#aId').value=x.id;$('#aTitle').value=x.title;$('#aBody').value=x.body;$('#aActive').checked=x.active;adminTab(type);
-  }else if(type==='music'){
-    $('#mId').value=x.id;$('#mTitle').value=x.title;$('#mArtist').value=x.artist_note||'';$('#mUrl').value=x.listen_url;$('#mImage').value=x.image_url||'';$('#mDesc').value=x.description||'';$('#mActive').checked=x.active;adminTab(type);
-  }else if(type==='gallery'){
-    $('#pId').value=x.id;$('#pTitle').value=x.title;$('#pImage').value=x.image_url;$('#pCaption').value=x.caption||'';$('#pActive').checked=x.active;adminTab(type);
-  }else if(type==='events'){
-    $('#eId').value=x.id;$('#eTitle').value=x.title;$('#eDate').value=x.event_at?new Date(x.event_at).toISOString().slice(0,16):'';$('#eLocation').value=x.location||'';$('#eUrl').value=x.event_url||'';$('#eDesc').value=x.description;$('#eActive').checked=x.active;adminTab(type);
-  }
+async function markRead(id){
+ if(!currentUser)return;
+ const {error}=await db.from('notification_reads').upsert({announcement_id:id,user_id:currentUser.id},{onConflict:'announcement_id,user_id'});
+ if(error){notify(error.message);return}
+ showNotifications();
 }
-async function deleteAdmin(type,id){
-  if(!confirm('Delete this item?'))return;
-  try{adminOnly();const table={giveaways:'giveaways',announcements:'announcements',music:'music_items',gallery:'gallery_items',events:'events'}[type];const {error}=await db.from(table).delete().eq('id',id);if(error)throw error;toast('Deleted.');await reloadContent();await loadAdmin()}
-  catch(e){toast(e.message||'Delete failed.',true)}
-}
-async function saveRecord(formId,type,table,build){
-  const form=$('#'+formId);form.onsubmit=async e=>{
-    e.preventDefault();try{
-      adminOnly();const rowData=build();const id=rowData.id;delete rowData.id;
-      if(id){const {error}=await db.from(table).update(rowData).eq('id',id);if(error)throw error}
-      else{rowData.created_by=user.id;const {error}=await db.from(table).insert(rowData);if(error)throw error}
-      toast('Saved successfully.');resetForm(formId);await reloadContent();await loadAdmin();
-    }catch(err){toast(err.message||'Save failed.',true)}
-  };
-}
-saveRecord('gForm','giveaways','giveaways',()=>({id:$('#gId').value,title:$('#gTitle').value.trim(),prize_name:$('#gPrize').value.trim(),prize_value:Number($('#gValue').value),currency:$('#gCurrency').value,image_url:$('#gImage').value.trim()||null,closes_at:$('#gCloses').value?new Date($('#gCloses').value).toISOString():null,description:$('#gDesc').value.trim(),rules:$('#gRules').value.trim(),active:$('#gActive').checked,featured:$('#gFeatured').checked}));
-saveRecord('aForm','announcements','announcements',()=>({id:$('#aId').value,title:$('#aTitle').value.trim(),body:$('#aBody').value.trim(),active:$('#aActive').checked}));
-saveRecord('mForm','music','music_items',()=>({id:$('#mId').value,title:$('#mTitle').value.trim(),artist_note:$('#mArtist').value.trim(),listen_url:$('#mUrl').value.trim(),image_url:$('#mImage').value.trim()||null,description:$('#mDesc').value.trim(),active:$('#mActive').checked}));
-saveRecord('pForm','gallery','gallery_items',()=>({id:$('#pId').value,title:$('#pTitle').value.trim(),image_url:$('#pImage').value.trim(),caption:$('#pCaption').value.trim(),active:$('#pActive').checked}));
-saveRecord('eForm','events','events',()=>({id:$('#eId').value,title:$('#eTitle').value.trim(),event_at:$('#eDate').value?new Date($('#eDate').value).toISOString():null,location:$('#eLocation').value.trim(),event_url:$('#eUrl').value.trim()||null,description:$('#eDesc').value.trim(),active:$('#eActive').checked}));
-$('#clearG').onclick=()=>resetForm('gForm');$('#clearA').onclick=()=>resetForm('aForm');$('#clearM').onclick=()=>resetForm('mForm');$('#clearP').onclick=()=>resetForm('pForm');$('#clearE').onclick=()=>resetForm('eForm');
-
-(async function init(){
-  try{
-    await reloadContent();
-    const {data:{session}}=await db.auth.getSession();
-    if(session?.user){user=session.user;profile=await ensureProfile(user);await signedIn(false)}
-    db.auth.onAuthStateChange((event,session)=>{
-      if(event==='PASSWORD_RECOVERY'){setTimeout(()=>{authMode('newPassword');open('authModal')},0)}
-      if(event==='SIGNED_OUT'){user=null;profile=null;$('#loginBtn').classList.remove('hidden');$('#accountBtn').classList.add('hidden');$('#noticeBtn').classList.add('hidden')}
-    });
-  }catch(e){console.error(e);toast('Setup issue: '+e.message,true)}
-})();
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+(async()=>{await refreshSession()})();
 </script>
 </body>
 </html>
