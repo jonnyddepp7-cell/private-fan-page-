@@ -9,46 +9,72 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#11110f;--panel:#1b1a17;--gold:#d9ad69;--cream:#f5eee2;--muted:#b9b0a3;--line:#37332d}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:Inter,Arial,sans-serif}
-button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;background:var(--gold);color:#21180e;font-weight:700}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--cream);font-family:Arial,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;background:var(--gold);color:#21180e;font-weight:700}
 button.secondary{background:#292721;color:var(--cream);border:1px solid var(--line)}
-button.danger{background:#783b35;color:white}input,textarea{width:100%;background:#121210;border:1px solid var(--line);color:white;border-radius:9px;padding:12px;margin:6px 0 12px}
+input,textarea{width:100%;background:#121210;border:1px solid var(--line);color:white;border-radius:9px;padding:12px;margin:6px 0 12px}
 header{position:sticky;top:0;background:#11110fee;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);z-index:5}
 .nav{max-width:1200px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:1.5px}.brand span{color:var(--gold)}
-nav{display:flex;gap:14px;flex-wrap:wrap}a{color:var(--cream);text-decoration:none}nav a{font-size:14px;color:var(--muted)}nav a:hover{color:var(--gold)}
+.brand{font-weight:900;letter-spacing:1.5px}
+.brand span{color:var(--gold)}
+nav{display:flex;gap:14px;flex-wrap:wrap}
+a{color:var(--cream);text-decoration:none}
+nav a{font-size:14px;color:var(--muted)}
+nav a:hover{color:var(--gold)}
 main{max-width:1200px;margin:auto;padding:25px 20px 70px}
 .hero{min-height:370px;border:1px solid #51432f;border-radius:22px;padding:clamp(25px,6vw,65px);display:flex;align-items:center;background:linear-gradient(90deg,#12110ff5,#17130dc9),url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1800&q=85') center/cover}
-.hero-content{max-width:650px}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:800}
-h1{font-size:clamp(36px,6vw,68px);line-height:1.04;margin:16px 0}h2{font-size:25px;margin:0 0 18px}p{line-height:1.65;color:var(--muted)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.section{margin-top:44px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.hero-content{max-width:650px}
+.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:800}
+h1{font-size:clamp(36px,6vw,68px);line-height:1.04;margin:16px 0}
+h2{font-size:25px;margin:0 0 18px}
+p{line-height:1.65;color:var(--muted)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center}
+.section{margin-top:44px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
 .card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden}
-.card img{width:100%;height:190px;object-fit:cover;background:#28251f;display:block}.card-body{padding:17px}.card h3{margin:0 0 8px}.card p{font-size:14px}
+.card img{width:100%;height:190px;object-fit:cover;background:#28251f;display:block}
+.card-body{padding:17px}
+.card h3{margin:0 0 8px}
+.card p{font-size:14px;overflow-wrap:anywhere}
 .pill{display:inline-block;background:#322b20;color:var(--gold);padding:6px 9px;border-radius:20px;font-size:11px;margin-bottom:10px}
-.muted{color:var(--muted);font-size:13px}.empty{padding:20px;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
+.muted{color:var(--muted);font-size:13px}
+.empty{padding:20px;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
 footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;color:var(--muted);font-size:12px}
 #notice{position:fixed;bottom:20px;right:20px;background:#292721;border:1px solid var(--line);padding:14px 18px;border-radius:12px;z-index:30;display:none;max-width:90vw}
 .modal{display:none;position:fixed;inset:0;background:#000b;z-index:20;align-items:center;justify-content:center;padding:16px;overflow:auto}
-.modal.show{display:flex}.modal-box{width:min(560px,100%);max-height:90vh;overflow:auto;background:#1b1a17;border:1px solid #51432f;border-radius:18px;padding:24px}
+.modal.show{display:flex}
+.modal-box{width:min(560px,100%);max-height:90vh;overflow:auto;background:#1b1a17;border:1px solid #51432f;border-radius:18px;padding:24px}
 .modal-box img{max-width:100%;max-height:250px;object-fit:cover;border-radius:12px}
 .close{float:right;background:#302c26;color:white;padding:8px 12px}
 #adminLink{display:none;color:var(--gold);font-weight:bold}
 hr{border:0;border-top:1px solid var(--line);margin:18px 0}
-@media(max-width:600px){.nav{padding:14px}.hero{min-height:330px}nav{gap:10px}nav a{font-size:12px}}
+@media(max-width:600px){
+ .nav{padding:14px}
+ .hero{min-height:330px}
+ nav{gap:10px}
+ nav a{font-size:12px}
+}
 </style>
 </head>
 <body>
+
 <header>
  <div class="nav">
   <a class="brand" href="#">WALLEN <span>COUNTRY CLUB</span></a>
   <nav>
-   <a href="#giveaways">Giveaways</a><a href="#music">Music</a><a href="#gallery">Photos</a><a href="#events">Events</a><a href="#announcements">News</a>
+   <a href="#giveaways">Giveaways</a>
+   <a href="#music">Music</a>
+   <a href="#gallery">Photos</a>
+   <a href="#events">Events</a>
+   <a href="#announcements">News</a>
   </nav>
   <div class="actions" style="margin:0">
    <a id="adminLink" href="admin.html">Admin dashboard ↗</a>
    <button class="secondary" id="profileBtn" onclick="openProfile()" style="display:none">My profile</button>
-   <button id="authBtn" onclick="openAuth()">Log in / Join</button>
+   <button id="authBtn" onclick="openAuth()">Log in</button>
    <button class="secondary" id="logoutBtn" onclick="logout()" style="display:none">Log out</button>
   </div>
  </div>
@@ -59,51 +85,80 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
   <div class="hero-content">
    <div class="eyebrow">Music · Community · Country</div>
    <h1>Where the music brings us together.</h1>
-   <p>Discover music, share moments, follow community events and participate in featured giveaways with fellow fans.</p>
-   <div class="actions"><a href="#music"><button>Explore the community</button></a><button class="secondary" onclick="openAuth()">Become a member</button></div>
+   <p>Discover music, share moments, follow community events and participate in giveaways with fellow fans.</p>
+   <div class="actions">
+    <a href="#music"><button>Explore the community</button></a>
+    <a href="https://wa.me/18254186715" target="_blank" rel="noopener noreferrer">
+     <button class="secondary">Become a Member</button>
+    </a>
+   </div>
    <p class="muted">An independent fan community. Not affiliated with or endorsed by Morgan Wallen or his representatives.</p>
   </div>
  </section>
 
  <section class="section" id="giveaways">
-  <div class="section-head"><h2>Featured giveaways</h2><span class="muted">Community promotions</span></div>
+  <div class="section-head">
+   <h2>Community giveaways</h2>
+   <span class="muted">Promotions and prizes</span>
+  </div>
   <div id="giveawayGrid" class="grid"><div class="empty">Loading giveaways…</div></div>
  </section>
+
  <section class="section" id="announcements">
-  <div class="section-head"><h2>Latest announcements</h2><button class="secondary" onclick="showNotifications()">My notifications</button></div>
+  <div class="section-head">
+   <h2>Latest announcements</h2>
+   <button class="secondary" onclick="showNotifications()">My notifications</button>
+  </div>
   <div id="announcementGrid" class="grid"><div class="empty">Loading announcements…</div></div>
  </section>
+
  <section class="section" id="music">
-  <h2>Music corner</h2><div id="musicGrid" class="grid"><div class="empty">Loading music…</div></div>
+  <h2>Music corner</h2>
+  <div id="musicGrid" class="grid"><div class="empty">Loading music…</div></div>
  </section>
+
  <section class="section" id="gallery">
-  <h2>Community gallery</h2><div id="galleryGrid" class="grid"><div class="empty">Loading photos…</div></div>
+  <h2>Community gallery</h2>
+  <div id="galleryGrid" class="grid"><div class="empty">Loading photos…</div></div>
  </section>
+
  <section class="section" id="events">
-  <h2>Upcoming events</h2><div id="eventGrid" class="grid"><div class="empty">Loading events…</div></div>
+  <h2>Upcoming events</h2>
+  <div id="eventGrid" class="grid"><div class="empty">Loading events…</div></div>
  </section>
+
  <section class="section" id="memberArea" style="display:none">
-  <h2>My community profile</h2><div id="memberSummary" class="panel" style="padding:20px"></div>
+  <h2>My community profile</h2>
+  <div id="memberSummary" class="panel" style="padding:20px"></div>
  </section>
 </main>
+
 <footer>
  <p>Wallen Country Club is an independent fan community. It is not the official website of Morgan Wallen and is not sponsored by, affiliated with, or endorsed by the artist.</p>
  <p>Only participate in promotions with clearly stated rules. Never send money or sensitive account information to claim a prize.</p>
+ <p><a href="https://wa.me/18254186715">Contact the community on WhatsApp</a></p>
 </footer>
 
 <div id="notice" role="status"></div>
 
-<!-- Authentication modal -->
 <div class="modal" id="authModal">
  <div class="modal-box">
   <button class="close" onclick="closeModal('authModal')">Close</button>
   <h2 id="authTitle">Welcome back</h2>
   <p id="authHelp">Log in to your community account.</p>
   <form id="authForm">
-   <div id="nameWrap" style="display:none"><label>Display name</label><input id="displayName" autocomplete="nickname"></div>
-   <label>Email address</label><input id="email" type="email" autocomplete="email" required>
-   <label>Password</label><input id="password" type="password" minlength="6" autocomplete="current-password" required>
-   <label id="termsWrap" style="display:none;font-size:13px"><input id="terms" type="checkbox" style="width:auto" > I agree to the community rules.</label>
+   <div id="nameWrap" style="display:none">
+    <label>Display name</label>
+    <input id="displayName" autocomplete="nickname">
+   </div>
+   <label>Email address</label>
+   <input id="email" type="email" autocomplete="email" required>
+   <label id="passwordLabel">Password</label>
+   <input id="password" type="password" minlength="6" autocomplete="current-password" required>
+   <label id="termsWrap" style="display:none;font-size:13px">
+    <input id="terms" type="checkbox" style="width:auto">
+    I agree to the community rules.
+   </label>
    <button id="authSubmit" type="submit" style="width:100%">Log in</button>
   </form>
   <p><a href="#" id="authSwitch" onclick="switchAuth(event)">Create an account</a></p>
@@ -111,199 +166,532 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
  </div>
 </div>
 
-<!-- Profile modal -->
 <div class="modal" id="profileModal">
  <div class="modal-box">
   <button class="close" onclick="closeModal('profileModal')">Close</button>
   <h2>My profile</h2>
   <form id="profileForm">
-   <label>Display name</label><input id="profileName" required maxlength="80">
-   <label>Short bio</label><textarea id="profileBio" rows="3" maxlength="500"></textarea>
-   <label>Favourite song</label><input id="profileSong" maxlength="150">
+   <label>Display name</label>
+   <input id="profileName" required maxlength="80">
+   <label>Short bio</label>
+   <textarea id="profileBio" rows="3" maxlength="500"></textarea>
+   <label>Favourite song</label>
+   <input id="profileSong" maxlength="150">
    <button type="submit">Save profile</button>
   </form>
  </div>
 </div>
 
-<!-- Giveaway popup -->
-<div class="modal" id="giveawayModal">
- <div class="modal-box">
-  <button class="close" onclick="closeModal('giveawayModal')">Close</button>
-  <div class="eyebrow">Featured community giveaway</div>
-  <div id="giveawayPopupContent"></div>
- </div>
-</div>
-
-<!-- Notifications modal -->
 <div class="modal" id="notificationsModal">
  <div class="modal-box">
   <button class="close" onclick="closeModal('notificationsModal')">Close</button>
-  <h2>Notifications</h2><div id="notificationList"></div>
+  <h2>Notifications</h2>
+  <div id="notificationList"></div>
  </div>
 </div>
 
 <script>
-const SUPABASE_URL = 'https://xjimgbqhmpkoxvfpgudp.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_fEcWODIqMqZ0A2UId3gj9g_HQnnliAU';
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL='https://xjimgbqhmpkoxvfpgudp.supabase.co';
+const SUPABASE_KEY='sb_publishable_fEcWODIqMqZ0A2UId3gj9g_HQnnliAU';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-let currentUser = null, profile = null, authMode = 'login', giveaways = [], announcements = [];
+let currentUser=null;
+let profile=null;
+let authMode='login';
+let giveaways=[];
+let announcements=[];
+let noticeTimer;
 
-const $ = s => document.querySelector(s);
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const dateText = d => d ? new Date(d).toLocaleString() : 'Date to be announced';
-function notify(message){const n=$('#notice');n.textContent=message;n.style.display='block';setTimeout(()=>n.style.display='none',3500)}
-function closeModal(id){$('#'+id).classList.remove('show')}
-function openModal(id){$('#'+id).classList.add('show')}
-function card(title,body,image='',tag=''){
- return `<article class="card">${image?`<img src="${esc(image)}" alt="${esc(title)}" loading="lazy" onerror="this.style.display='none'">`:''}<div class="card-body">${tag?`<span class="pill">${esc(tag)}</span>`:''}<h3>${esc(title)}</h3>${body}</div></article>`;
+const $=selector=>document.querySelector(selector);
+
+const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[char]));
+
+function dateText(value){
+ if(!value)return 'Date to be announced';
+ const d=new Date(value);
+ return Number.isNaN(d.getTime())?'Date to be announced':d.toLocaleString();
 }
 
-function openAuth(){authMode='login';renderAuth();openModal('authModal')}
+function notify(message){
+ const n=$('#notice');
+ n.textContent=message;
+ n.style.display='block';
+ clearTimeout(noticeTimer);
+ noticeTimer=setTimeout(()=>n.style.display='none',4000);
+}
+
+function closeModal(id){
+ $('#'+id).classList.remove('show');
+}
+
+function openModal(id){
+ $('#'+id).classList.add('show');
+}
+
+function card(title,body,image='',tag=''){
+ return `<article class="card">
+  ${image?`<img src="${esc(image)}" alt="${esc(title)}" loading="lazy" onerror="this.style.display='none'">`:''}
+  <div class="card-body">
+   ${tag?`<span class="pill">${esc(tag)}</span>`:''}
+   <h3>${esc(title)}</h3>
+   ${body}
+  </div>
+ </article>`;
+}
+
+function openAuth(){
+ authMode='login';
+ renderAuth();
+ openModal('authModal');
+}
+
 function renderAuth(){
- $('#authTitle').textContent=authMode==='login'?'Welcome back':authMode==='signup'?'Join the community':'Reset password';
- $('#authHelp').textContent=authMode==='signup'?'Create your free member account.':authMode==='reset'?'We will email you a password reset link.':'Log in to your community account.';
+ $('#authTitle').textContent=
+  authMode==='login'?'Welcome back':
+  authMode==='signup'?'Join the community':'Reset password';
+
+ $('#authHelp').textContent=
+  authMode==='signup'?'Create your community account.':
+  authMode==='reset'?'Enter your email to request a password reset link.':
+  'Log in to your community account.';
+
  $('#nameWrap').style.display=authMode==='signup'?'block':'none';
  $('#termsWrap').style.display=authMode==='signup'?'block':'none';
+ $('#passwordLabel').style.display=authMode==='reset'?'none':'block';
  $('#password').style.display=authMode==='reset'?'none':'block';
  $('#password').required=authMode!=='reset';
- $('#authSubmit').textContent=authMode==='login'?'Log in':authMode==='signup'?'Create account':'Send reset link';
+
+ $('#authSubmit').textContent=
+  authMode==='login'?'Log in':
+  authMode==='signup'?'Create account':'Send reset link';
+
  $('#authSwitch').style.display=authMode==='reset'?'none':'inline';
- $('#authSwitch').textContent=authMode==='login'?'Create an account':'Already a member? Log in';
+ $('#authSwitch').textContent=
+  authMode==='login'?'Create an account':'Already a member? Log in';
 }
-function switchAuth(e){e.preventDefault();authMode=authMode==='login'?'signup':'login';renderAuth()}
-async function resetPassword(e){
- e.preventDefault();authMode='reset';renderAuth();
+
+function switchAuth(event){
+ event.preventDefault();
+ authMode=authMode==='login'?'signup':'login';
+ renderAuth();
 }
-$('#authForm').addEventListener('submit',async e=>{
- e.preventDefault();
- const email=$('#email').value.trim(), password=$('#password').value;
+
+async function resetPassword(event){
+ event.preventDefault();
+ authMode='reset';
+ renderAuth();
+}
+
+$('#authForm').addEventListener('submit',async event=>{
+ event.preventDefault();
+
+ const email=$('#email').value.trim();
+ const password=$('#password').value;
  let result;
- if(authMode==='signup'){
-  if(!$('#terms').checked){notify('Please agree to the community rules.');return}
-  result=await db.auth.signUp({email,password,options:{data:{display_name:$('#displayName').value.trim()||'Member'},emailRedirectTo:location.origin+location.pathname}});
- }else if(authMode==='reset'){
-  result=await db.auth.resetPasswordForEmail(email,{redirectTo:location.href});
- }else{
-  result=await db.auth.signInWithPassword({email,password});
+
+ try{
+  if(authMode==='signup'){
+   if(!$('#terms').checked){
+    notify('Please agree to the community rules.');
+    return;
+   }
+
+   result=await db.auth.signUp({
+    email,
+    password,
+    options:{
+     data:{display_name:$('#displayName').value.trim()||'Member'},
+     emailRedirectTo:location.origin+location.pathname
+    }
+   });
+  }else if(authMode==='reset'){
+   result=await db.auth.resetPasswordForEmail(email,{
+    redirectTo:location.href
+   });
+  }else{
+   result=await db.auth.signInWithPassword({email,password});
+  }
+
+  if(result.error)throw result.error;
+
+  if(authMode==='signup'){
+   notify('Account created. Check your email if confirmation is required.');
+  }else if(authMode==='reset'){
+   notify('If the account exists, a reset email has been sent.');
+  }else{
+   notify('Welcome back!');
+  }
+
+  closeModal('authModal');
+  await refreshSession();
+ }catch(error){
+  notify('Authentication error: '+error.message);
  }
- if(result.error){notify(result.error.message);return}
- if(authMode==='signup'){notify('Account created. Check your email if confirmation is required.')}
- else if(authMode==='reset'){notify('If the account exists, a reset email has been sent.')}
- else {notify('Welcome back!')}
- closeModal('authModal');
- await refreshSession();
 });
 
-async function logout(){await db.auth.signOut();currentUser=null;profile=null;updateAuthUI();notify('You have logged out.')}
+async function logout(){
+ const {error}=await db.auth.signOut();
+ if(error){
+  notify(error.message);
+  return;
+ }
+
+ currentUser=null;
+ profile=null;
+ updateAuthUI();
+ notify('You have logged out.');
+}
+
 async function ensureProfile(){
  if(!currentUser)return null;
- let {data,error}=await db.from('profiles').select('*').eq('id',currentUser.id).maybeSingle();
- if(error){console.error(error);return null}
- if(!data){
-  const {data:newProfile,error:insertError}=await db.from('profiles').insert({
+
+ const {data,error}=await db.from('profiles')
+  .select('*')
+  .eq('id',currentUser.id)
+  .maybeSingle();
+
+ if(error){
+  console.error('Profile lookup error:',error);
+  return null;
+ }
+
+ if(data)return data;
+
+ const {data:newProfile,error:insertError}=await db.from('profiles')
+  .insert({
    id:currentUser.id,
    display_name:currentUser.user_metadata?.display_name||'Member',
    role:'member'
-  }).select().single();
-  if(insertError){console.error(insertError);return null}
-  data=newProfile;
+  })
+  .select()
+  .single();
+
+ if(insertError){
+  console.error('Profile creation error:',insertError);
+  return null;
  }
- return data;
+
+ return newProfile;
 }
+
 function updateAuthUI(){
  const logged=!!currentUser;
+
  $('#authBtn').style.display=logged?'none':'inline-block';
  $('#logoutBtn').style.display=logged?'inline-block':'none';
  $('#profileBtn').style.display=logged?'inline-block':'none';
  $('#adminLink').style.display=profile?.role==='admin'?'inline-block':'none';
  $('#memberArea').style.display=logged?'block':'none';
+
  if(logged){
-  $('#memberSummary').innerHTML=`<h3>${esc(profile?.display_name||'Member')}</h3><p>${esc(profile?.bio||'Add a short bio to your profile.')}</p><p>Favourite song: ${esc(profile?.favorite_song||'Not added yet')}</p>`;
+  $('#memberSummary').innerHTML=`
+   <h3>${esc(profile?.display_name||'Member')}</h3>
+   <p>${esc(profile?.bio||'Add a short bio to your profile.')}</p>
+   <p>Favourite song: ${esc(profile?.favorite_song||'Not added yet')}</p>`;
  }
 }
+
 async function refreshSession(){
- const {data}=await db.auth.getSession();currentUser=data.session?.user||null;
- profile=await ensureProfile();updateAuthUI();await loadAll();
+ const {data,error}=await db.auth.getSession();
+
+ if(error){
+  console.error(error);
+  return;
+ }
+
+ currentUser=data.session?.user||null;
+ profile=await ensureProfile();
+ updateAuthUI();
+ await loadAll();
 }
-db.auth.onAuthStateChange(()=>{setTimeout(()=>refreshSession(),0)});
+
+db.auth.onAuthStateChange(()=>{
+ setTimeout(()=>refreshSession(),0);
+});
 
 async function loadAll(){
- await Promise.all([loadGiveaways(),loadAnnouncements(),loadMusic(),loadGallery(),loadEvents()]);
+ await Promise.all([
+  loadGiveaways(),
+  loadAnnouncements(),
+  loadMusic(),
+  loadGallery(),
+  loadEvents()
+ ]);
 }
+
 async function loadGiveaways(){
- const {data,error}=await db.from('giveaways').select('*').eq('active',true).order('created_at',{ascending:false});
- if(error){$('#giveawayGrid').innerHTML='<div class="empty">Giveaways are temporarily unavailable.</div>';console.error(error);return}
- giveaways=data||[];
- $('#giveawayGrid').innerHTML=giveaways.length?giveaways.map(g=>card(g.title,
-  `<p><strong>${esc(g.prize_name)}</strong> · ${esc(g.currency||'USD')} ${esc(g.prize_value??'')}</p><p>${esc(g.description||'')}</p><p class="muted">Closes: ${esc(dateText(g.closes_at))}</p><button onclick="enterGiveaway('${esc(g.id)}')">Enter giveaway</button>`,g.image_url,g.featured?'Featured':'Giveaway')).join(''):'<div class="empty">No active giveaways yet. Check back soon.</div>';
- const featured=giveaways.find(g=>g.featured);
- if(featured && !sessionStorage.getItem('wccPopupSeen')){
-  sessionStorage.setItem('wccPopupSeen','1');showGiveawayPopup(featured);
+ const {data,error}=await db.from('giveaways')
+  .select('*')
+  .eq('active',true)
+  .order('created_at',{ascending:false});
+
+ if(error){
+  $('#giveawayGrid').innerHTML='<div class="empty">Giveaways are temporarily unavailable.</div>';
+  console.error('Giveaway loading error:',error);
+  return;
  }
+
+ giveaways=data||[];
+ const now=new Date();
+
+ const visible=giveaways.filter(g=>{
+  if(g.opens_at&&new Date(g.opens_at)>now)return false;
+  if(g.closes_at&&new Date(g.closes_at)<=now)return false;
+  return true;
+ });
+
+ $('#giveawayGrid').innerHTML=visible.length
+  ?visible.map(g=>card(
+    g.title,
+    `<p><strong>${esc(g.prize_details||'Prize details coming soon')}</strong></p>
+     <p>${g.price!==null&&g.price!==undefined?esc(g.price)+' ':''}${esc(g.currency||'')}</p>
+     <p>${esc(g.description||'')}</p>
+     ${g.eligibility?`<p><strong>Eligibility:</strong> ${esc(g.eligibility)}</p>`:''}
+     ${g.rules?`<p><strong>Rules:</strong> ${esc(g.rules)}</p>`:''}
+     <p class="muted">Closes: ${esc(dateText(g.closes_at))}</p>
+     <button onclick="enterGiveaway('${esc(g.id)}')">Enter giveaway</button>`,
+    g.image_url,
+    g.status||'Giveaway'
+   )).join('')
+  :'<div class="empty">No open giveaways right now. Check back soon.</div>';
 }
-function showGiveawayPopup(g){
- $('#giveawayPopupContent').innerHTML=`${g.image_url?`<img src="${esc(g.image_url)}" alt="${esc(g.prize_name)}">`:''}<h2>${esc(g.title)}</h2><p><strong>${esc(g.prize_name)}</strong> · ${esc(g.currency||'USD')} ${esc(g.prize_value??'')}</p><p>${esc(g.description||'')}</p><p>${esc(g.rules||'Read all official rules before entering.')}</p><p class="muted">Closing: ${esc(dateText(g.closes_at))}</p><button onclick="enterGiveaway('${esc(g.id)}')">Enter now</button>`;
- openModal('giveawayModal');
-}
+
 async function enterGiveaway(id){
- if(!currentUser){closeModal('giveawayModal');openAuth();notify('Log in before entering.');return}
- const g=giveaways.find(x=>String(x.id)===String(id));
- if(!g){notify('Giveaway not found.');return}
- if(g.closes_at && new Date(g.closes_at)<=new Date()){notify('This giveaway has closed.');return}
- const {error}=await db.from('giveaway_entries').insert({giveaway_id:g.id,user_id:currentUser.id});
- if(error){notify(error.code==='23505'?'You have already entered this giveaway.':error.message);return}
- notify('Your entry has been recorded.');closeModal('giveawayModal');
+ if(!currentUser){
+  openAuth();
+  notify('Log in before entering a giveaway.');
+  return;
+ }
+
+ const giveaway=giveaways.find(g=>String(g.id)===String(id));
+
+ if(!giveaway){
+  notify('Giveaway not found.');
+  return;
+ }
+
+ const now=new Date();
+
+ if(!giveaway.active){
+  notify('This giveaway is not active.');
+  return;
+ }
+
+ if(giveaway.opens_at&&new Date(giveaway.opens_at)>now){
+  notify('This giveaway has not opened yet.');
+  return;
+ }
+
+ if(giveaway.closes_at&&new Date(giveaway.closes_at)<=now){
+  notify('This giveaway has closed.');
+  return;
+ }
+
+ const {error}=await db.from('giveaway_entries').insert({
+  giveaway_id:giveaway.id,
+  user_id:currentUser.id
+ });
+
+ if(error){
+  notify(error.code==='23505'
+   ?'You have already entered this giveaway.'
+   :error.message);
+  return;
+ }
+
+ notify('Your entry has been recorded.');
 }
+
 async function loadAnnouncements(){
- const {data,error}=await db.from('announcements').select('*').eq('active',true).order('created_at',{ascending:false});
- if(error){$('#announcementGrid').innerHTML='<div class="empty">Announcements are temporarily unavailable.</div>';return}
+ const {data,error}=await db.from('announcements')
+  .select('*')
+  .eq('active',true)
+  .order('created_at',{ascending:false});
+
+ if(error){
+  $('#announcementGrid').innerHTML='<div class="empty">Announcements are temporarily unavailable.</div>';
+  console.error(error);
+  return;
+ }
+
  announcements=data||[];
- $('#announcementGrid').innerHTML=announcements.length?announcements.map(a=>card(a.title,`<p>${esc(a.body)}</p><p class="muted">${esc(dateText(a.created_at))}</p>`, '', 'Announcement')).join(''):'<div class="empty">No announcements yet.</div>';
+
+ $('#announcementGrid').innerHTML=announcements.length
+  ?announcements.map(a=>card(
+    a.title,
+    `<p>${esc(a.body||'')}</p><p class="muted">${esc(dateText(a.created_at))}</p>`,
+    '',
+    'Announcement'
+   )).join('')
+  :'<div class="empty">No announcements yet.</div>';
 }
+
 async function loadMusic(){
- const {data,error}=await db.from('music_items').select('*').eq('active',true).order('created_at',{ascending:false});
- if(error){$('#musicGrid').innerHTML='<div class="empty">Music is temporarily unavailable.</div>';return}
- $('#musicGrid').innerHTML=data?.length?data.map(m=>card(m.title,`<p>${esc(m.artist_note||'Music corner')}</p><p>${esc(m.description||'')}</p>${m.listen_url?`<a href="${esc(m.listen_url)}" target="_blank" rel="noopener noreferrer"><button>Listen / Open</button></a>`:''}`,m.image_url,'Music')).join(''):'<div class="empty">Music links will appear here.</div>';
+ const {data,error}=await db.from('music_items')
+  .select('*')
+  .eq('active',true)
+  .order('created_at',{ascending:false});
+
+ if(error){
+  $('#musicGrid').innerHTML='<div class="empty">Music is temporarily unavailable.</div>';
+  console.error(error);
+  return;
+ }
+
+ $('#musicGrid').innerHTML=data?.length
+  ?data.map(m=>card(
+    m.title,
+    `<p>${esc(m.artist_note||'Music corner')}</p>
+     <p>${esc(m.description||'')}</p>
+     ${m.listen_url?`<a href="${esc(m.listen_url)}" target="_blank" rel="noopener noreferrer"><button>Listen / Open</button></a>`:''}`,
+    m.image_url,
+    'Music'
+   )).join('')
+  :'<div class="empty">Music links will appear here.</div>';
 }
+
 async function loadGallery(){
- const {data,error}=await db.from('gallery_items').select('*').eq('active',true).order('created_at',{ascending:false});
- if(error){$('#galleryGrid').innerHTML='<div class="empty">Gallery is temporarily unavailable.</div>';return}
- $('#galleryGrid').innerHTML=data?.length?data.map(m=>card(m.title,`<p>${esc(m.caption||'')}</p>`,m.image_url,'Photo')).join(''):'<div class="empty">Photos will appear here.</div>';
+ const {data,error}=await db.from('gallery_items')
+  .select('*')
+  .eq('active',true)
+  .order('created_at',{ascending:false});
+
+ if(error){
+  $('#galleryGrid').innerHTML='<div class="empty">Gallery is temporarily unavailable.</div>';
+  console.error(error);
+  return;
+ }
+
+ $('#galleryGrid').innerHTML=data?.length
+  ?data.map(item=>card(
+    item.title,
+    `<p>${esc(item.caption||'')}</p>`,
+    item.image_url,
+    'Photo'
+   )).join('')
+  :'<div class="empty">Photos will appear here.</div>';
 }
+
 async function loadEvents(){
- const {data,error}=await db.from('events').select('*').eq('active',true).order('event_at',{ascending:true});
- if(error){$('#eventGrid').innerHTML='<div class="empty">Events are temporarily unavailable.</div>';return}
- $('#eventGrid').innerHTML=data?.length?data.map(m=>card(m.title,`<p>${esc(m.description||'')}</p><p>${esc(dateText(m.event_at))}</p><p>${esc(m.location||'Location to be announced')}</p>${m.event_url?`<a href="${esc(m.event_url)}" target="_blank" rel="noopener noreferrer"><button>Event details</button></a>`:''}`,'','Event')).join(''):'<div class="empty">No events listed yet.</div>';
+ const {data,error}=await db.from('events')
+  .select('*')
+  .eq('active',true)
+  .order('event_at',{ascending:true});
+
+ if(error){
+  $('#eventGrid').innerHTML='<div class="empty">Events are temporarily unavailable.</div>';
+  console.error(error);
+  return;
+ }
+
+ $('#eventGrid').innerHTML=data?.length
+  ?data.map(item=>card(
+    item.title,
+    `<p>${esc(item.description||'')}</p>
+     <p>${esc(dateText(item.event_at))}</p>
+     <p>${esc(item.location||'Location to be announced')}</p>
+     ${item.event_url?`<a href="${esc(item.event_url)}" target="_blank" rel="noopener noreferrer"><button>Event details</button></a>`:''}`,
+    '',
+    'Event'
+   )).join('')
+  :'<div class="empty">No events listed yet.</div>';
 }
+
 function openProfile(){
- if(!profile){notify('Please log in first.');return}
+ if(!currentUser||!profile){
+  notify('Your profile is not available. Please log in again.');
+  return;
+ }
+
  $('#profileName').value=profile.display_name||'';
  $('#profileBio').value=profile.bio||'';
  $('#profileSong').value=profile.favorite_song||'';
  openModal('profileModal');
 }
-$('#profileForm').addEventListener('submit',async e=>{
- e.preventDefault();if(!currentUser)return;
- const changes={display_name:$('#profileName').value.trim(),bio:$('#profileBio').value.trim(),favorite_song:$('#profileSong').value.trim()};
- const {data,error}=await db.from('profiles').update(changes).eq('id',currentUser.id).select().single();
- if(error){notify(error.message);return}
- profile=data;updateAuthUI();closeModal('profileModal');notify('Profile saved.');
+
+$('#profileForm').addEventListener('submit',async event=>{
+ event.preventDefault();
+ if(!currentUser||!profile)return;
+
+ const changes={
+  display_name:$('#profileName').value.trim(),
+  bio:$('#profileBio').value.trim(),
+  favorite_song:$('#profileSong').value.trim()
+ };
+
+ const {data,error}=await db.from('profiles')
+  .update(changes)
+  .eq('id',currentUser.id)
+  .select()
+  .single();
+
+ if(error){
+  notify('Profile save failed: '+error.message);
+  return;
+ }
+
+ profile=data;
+ updateAuthUI();
+ closeModal('profileModal');
+ notify('Profile saved.');
 });
+
 async function showNotifications(){
- if(!currentUser){openAuth();notify('Log in to view your notifications.');return}
- const {data:reads}=await db.from('notification_reads').select('announcement_id').eq('user_id',currentUser.id);
- const readSet=new Set((reads||[]).map(r=>String(r.announcement_id)));
- $('#notificationList').innerHTML=announcements.length?announcements.map(a=>`<div class="panel" style="padding:15px;margin:10px 0"><span class="pill">${readSet.has(String(a.id))?'Read':'New'}</span><h3>${esc(a.title)}</h3><p>${esc(a.body)}</p><button class="secondary" onclick="markRead('${esc(a.id)}')">Mark as read</button></div>`).join(''):'<p>No announcements yet.</p>';
+ if(!currentUser){
+  openAuth();
+  notify('Log in to view your notifications.');
+  return;
+ }
+
+ const {data:reads,error}=await db.from('notification_reads')
+  .select('announcement_id')
+  .eq('user_id',currentUser.id);
+
+ if(error){
+  notify('Notifications error: '+error.message);
+  return;
+ }
+
+ const readSet=new Set((reads||[]).map(row=>String(row.announcement_id)));
+
+ $('#notificationList').innerHTML=announcements.length
+  ?announcements.map(a=>`
+   <div class="panel" style="padding:15px;margin:10px 0">
+    <span class="pill">${readSet.has(String(a.id))?'Read':'New'}</span>
+    <h3>${esc(a.title)}</h3>
+    <p>${esc(a.body||'')}</p>
+    <button class="secondary" onclick="markRead('${esc(a.id)}')">Mark as read</button>
+   </div>`).join('')
+  :'<p>No announcements yet.</p>';
+
  openModal('notificationsModal');
 }
+
 async function markRead(id){
  if(!currentUser)return;
- const {error}=await db.from('notification_reads').upsert({announcement_id:id,user_id:currentUser.id},{onConflict:'announcement_id,user_id'});
- if(error){notify(error.message);return}
- showNotifications();
+
+ const {error}=await db.from('notification_reads').upsert({
+  announcement_id:id,
+  user_id:currentUser.id
+ },{onConflict:'announcement_id,user_id'});
+
+ if(error){
+  notify('Could not mark as read: '+error.message);
+  return;
+ }
+
+ notify('Marked as read.');
+ await showNotifications();
 }
-document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+
+document.querySelectorAll('.modal').forEach(modal=>{
+ modal.addEventListener('click',event=>{
+  if(event.target===modal)modal.classList.remove('show');
+ });
+});
+
 (async()=>{await refreshSession()})();
 </script>
 </body>
